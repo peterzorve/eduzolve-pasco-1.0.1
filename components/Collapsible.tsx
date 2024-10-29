@@ -19,9 +19,10 @@ export function Collapsible({ children, title }: PropsWithChildren & { title: st
         <Ionicons
           name={isOpen ? 'chevron-down' : 'chevron-forward-outline'}
           size={18}
+          
           color={theme === 'light' ? Colors.light.icon : Colors.dark.icon}
         />
-        <ThemedText type="defaultSemiBold">{title}</ThemedText>
+        <ThemedText type="default" style={{}}>{title}</ThemedText>
       </TouchableOpacity>
       {isOpen && <ThemedView style={styles.content}>{children}</ThemedView>}
     </ThemedView>

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "eduzolve-pastquo",
+    "name": "EduZolve PastQuo",
     "slug": "eduzolve-pastquo",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,13 +13,27 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.zorvepeter.eduzolvepastquo",
+      "buildNumber": "3",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app needs access to your camera to take profile pictures.",
+        "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload pictures.",
+        "NSMicrophoneUsageDescription": "This app requires microphone access for audio recording."
+      }
     },
     "android": {
+      "permissions": [
+        "CAMERA",
+        "RECORD_AUDIO",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.zorvepeter.eduzolvepastquo"
     },
     "web": {
       "bundler": "metro",
@@ -27,10 +41,40 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+
+      "apiKeySTUDENTS": "AIzaSyCu1GVnoC8G1xlm3tU9A1Yp93oh8ALEzq8",
+      "authDomainSTUDENTS": "eduzolve-pastquo-students.firebaseapp.com",
+      "projectIdSTUDENTS": "eduzolve-pastquo-students",
+      "storageBucketSTUDENTS": "eduzolve-pastquo-students.appspot.com",
+      "messagingSenderIdSTUDENTS": "169306470812",
+      "appIdSTUDENTS": "1:169306470812:web:db4077816e1919acfcb059",
+      "measurementIdSTUDENTS": "G-94WZQBKHY7",
+
+      "apiKeyTEACHERS": "AIzaSyDtWtRT_ySdr76-CceSjIJLQrXRbCotRsY",
+      "authDomainTEACHERS": "eduzolve-pastquo-referrals.firebaseapp.com",
+      "projectIdTEACHERS": "eduzolve-pastquo-referrals",
+      "storageBucketTEACHERS": "eduzolve-pastquo-referrals.appspot.com",
+      "messagingSenderIdTEACHERS": "671840169810",
+      "appIdTEACHERS": "1:671840169810:web:eac8a12c1acd539aae948b",
+      "measurementIdTEACHERS": "G-31PY7KDSN4",
+    
+      "eas": {
+        "projectId": "7a00fd9b-fd56-4d0b-b608-2844f897d423"
+      }
     }
   }
 }

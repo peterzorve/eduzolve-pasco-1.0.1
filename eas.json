@@ -1,0 +1,48 @@
+{
+  "cli": {
+    "version": ">= 12.5.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true, 
+            // for ios production: eas build --platform ios --profile production
+     "ios": {
+
+     },
+      "android": {
+        // for android production: eas build --platform android --profile production
+        "buildType": "app-bundle"
+      }
+    },
+    // =======================================================================================
+    "simulator": {
+      // Building an .app file: eas build --platform ios --profile simulator
+      "ios":{
+        "simulator": true
+      }
+    },
+    "androidapk": {
+      // Building apk file: eas build --platform android --profile androidapk
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "zorvepeter28@gmail.com",
+        "ascAppId": "6717586977",
+        "appleTeamId": "FG5ZX3M3B5"
+      }
+    }
+  }
+}
