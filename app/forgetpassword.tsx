@@ -13,7 +13,7 @@ const ForgetPassword = () => {
   const {height}   = useWindowDimensions()
   const [email, setEmail] = useState(""); 
 
-  useInactivityLogout(3 * 60 * 1000);  // 30 minutes
+  useInactivityLogout(5);  // 30 minutes
   // === Customize Signin Button ==================================================================
 
 

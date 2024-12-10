@@ -31,7 +31,12 @@ const PasswordSettingsScreen = () => {
     const router = useRouter();
     const colorScheme = useColorScheme();
     const dispatch   = useDispatch()
-    useInactivityLogout(10 * 60 * 1000);
+    useInactivityLogout(10);
+
+    const subscriptionStatus = useSelector((state) => state.subscription.status);
+    const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false
+    const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
+    const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
 
     // const auth = getAuth()
 
@@ -332,11 +337,27 @@ const PasswordSettingsScreen = () => {
         <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={80} style={{   flex: 1, }} >
             <View style={{flex: 1, justifyContent: "center",  width: "100%", alignSelf: "center", }}>
                 <ScrollView style={{ width: "100%", alignSelf: "center", marginVertical: 0}} >
-                    <Text></Text>
+                    
+                    <View  style={{ flexDirection: 'row', padding: 5, alignSelf: "center",  borderRadius: 10, width: "90%", marginVertical: 10 }} >
+                      <View style={{ flex: 1 }} >
+                        <Text style={{ paddingLeft: 5, fontSize: 28,  marginBottom: 3, color:  colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>Settings</Text>
+                      </View>
+                      {/* <View style={{ flex: 1, justifyContent: "center", }} >
+                          <Text style={{fontFamily: "Kanit", textDecorationLine: "underline", marginBottom: 10,  fontSize: 18, color: colorScheme === "dark" ? "white" : "black" }} >
+                            Note 
+                          </Text>
+                      </View> */}
+                      
+                      <TouchableOpacity disabled={active} onPress={() => { router.push('/payment') }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: active ? "green" : "red", padding: 3 }}>
+                        <Ionicons name={active ? 'lock-open' : 'lock-closed'}  size={24} color="white" style={{ }}/>
+                        <Text style={{   fontFamily: "Kanit", fontSize: 8,  paddingHorizontal: 3, color:"white" }}>{ active ? "Active" : "Inactive"}{"\n"}Subscription</Text> 
+                      </TouchableOpacity>
+                    </View>
+
                     <View style={{ width: "90%", alignSelf: "center", marginVertical: 10 }}>
-                        <Text style={{fontFamily: "Kanit", marginBottom: 10, textAlign: "center", fontSize: 20, color: colorScheme === "dark" ? "white" : "black" }} >
+                        {/* <Text style={{fontFamily: "Kanit", marginBottom: 10, textAlign: "center", fontSize: 20, color: colorScheme === "dark" ? "white" : "black" }} >
                           Password settings
-                        </Text>
+                        </Text> */}
                         <Text style={{fontFamily: "Kanit",  textAlign: "center", fontSize: 13, color: colorScheme === "dark" ? "white" : "black" }} >
                           Setting up a 4-digit passcode allows you to quickly log in without the hassle of entering your email and password each time.
                           {"\n"}Update your login password by clicking the "Login Password" button. 

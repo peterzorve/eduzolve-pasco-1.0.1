@@ -16,7 +16,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
   const dispatch   = useDispatch()
-  useInactivityLogout(30 * 60 * 1000); 
+  useInactivityLogout(30); 
 
 
 
@@ -24,6 +24,12 @@ export default function HomeScreen() {
   // const user = {username: "Peter Zorve", email: "zorvepeter28@gmail.com", phonenumber: "+358417289032", schoolname: "University of Eastern Finland", program: "Chemistry", level: "400", semester: "2nd Semester", dateOfBirth: "25th Jan. 2000"}
   const user = useSelector((state) => state.user.user); 
   const [remainingTime, setRemainingTime] = useState("")
+
+  const subscriptionStatus = useSelector((state) => state.subscription.status);
+  const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false
+  const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
+  const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
+
 
   const updateReferralStatus = async () => {
     try {
@@ -75,24 +81,38 @@ export default function HomeScreen() {
   return (
 
     <ImageBackground source={require('@/assets/images/background/background3.jpg')} style={{ flex: 1, }} >
-    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={80} style={{   flex: 1, }} >
-        <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: "rgba(255, 255, 255, 1)",}} >
-          {/* <View style={{ width: "95%", alignSelf: "center", marginTop: 10, flexDirection: "row", backgroundColor: "#43cc98", borderTopLeftRadius: 10, borderTopRightRadius: 10 } }>
-              <View style={{ flexGrow: 1,}}>
-                  <Text style={{color: "black", textAlign: "center", padding: 5, fontFamily: "Kanit", fontSize: 18}}>Profile  Information</Text>
-              </View>
-              <TouchableOpacity  style={{  justifyContent: 'center', alignItems: "center", backgroundColor: "white", borderRadius: 20, marginHorizontal: 8, margin:3 }}  onPress={() => {  }}>
-                  <Ionicons name={'settings'}  size={20} color="black" style={{margin: 5}}/>
-              </TouchableOpacity>
+    <KeyboardAvoidingView  behavior={Platform.OS === "ios" ? "padding" : "height"} keyboardVerticalOffset={80} style={{ flex: 1, }} >
+        <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: colorScheme === "dark" ? "black" : "white",}} >
+
+        <View  style={{ flexDirection: 'row', padding: 5, alignSelf: "center",  borderRadius: 10, width: "95%" }} >
+          <View style={{ flex: 1 }} >
+            <Text style={{ paddingLeft: 5, fontSize: 24,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>Profile Information</Text>
+          </View>
+          {/* <View style={{ flex: 1, justifyContent: "center", }} >
+              <Text style={{fontFamily: "Kanit", textDecorationLine: "underline", marginBottom: 10,  fontSize: 18, color: colorScheme === "dark" ? "white" : "black" }} >
+                Note 
+              </Text>
           </View> */}
-          <View style={{ width: "90%", alignSelf: "center", marginTop: 20  }}>
+          
+          <TouchableOpacity disabled={active} onPress={() => { router.push('/payment') }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: active ? "green" : "red", padding: 3 }}>
+            <Ionicons name={active ? 'lock-open' : 'lock-closed'}  size={24} color="white" style={{ }}/>
+            <Text style={{   fontFamily: "Kanit", fontSize: 8,  paddingHorizontal: 3, color:"white" }}>{ active ? "Active" : "Inactive"}{"\n"}Subscription</Text> 
+          </TouchableOpacity>
+        </View>
+
+
+          {/* <View style={{ width: "90%", alignSelf: "center", marginTop: 20  }}>
               <Text style={{fontFamily: "Kanit",  fontSize: 24,  }} >
                 Profile Information
               </Text>
- 
           </View>
+          <View style={{  alignSelf: "flex-start", backgroundColor: active ? "green" : "red", marginLeft: "5%", borderRadius: 5 }}>
+              <Text style={{fontFamily: "Kanit",  fontSize: 13, paddingHorizontal: 8   }} >
+                {active ? "PAID - SUBSCRIPTION ACTIVE" : "UNPAID - SUBSCRIPTION INACTIVE"}
+              </Text>
+          </View> */}
 
-          <View style={{ paddingHorizontal: 20,  marginBottom: 20, marginHorizontal: 10, backgroundColor: "white", marginVertical: 3, width: "100%", alignSelf: "center", borderBottomLeftRadius: 10, borderBottomRightRadius: 10, flex: 1 }}>
+          <View style={{ paddingHorizontal: 20,  marginBottom: 20, marginHorizontal: 10, backgroundColor: colorScheme === "dark" ? "black" : "white", marginVertical: 3, width: "100%", alignSelf: "center", borderBottomLeftRadius: 10, borderBottomRightRadius: 10, flex: 1 }}>
 
               {(user?.username )    && ( <UserData header={"Email"} title={ user?.username } /> )} 
               {(user?.email )       && ( <UserData header={"Name"}  title={ user?.email } /> )} 
@@ -105,18 +125,51 @@ export default function HomeScreen() {
                   <View style={{flexDirection: "row", }}>
                       <View style={{ flexGrow: 1, }} >
                           <Text style={{paddingTop: 8,paddingLeft: 5, color: "gray",fontSize: 12,fontFamily: "Kanit", }}>{ "Password" }</Text>
-                          <Text style={{paddingLeft: 5, fontWeight: "bold",  marginBottom: 3, color: "black", fontFamily: "Kanit"}}>{  "************"  }</Text>
+                          <Text style={{paddingLeft: 5, fontWeight: "bold",  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit"}}>{ "************" }</Text>
                       </View>
                       <TouchableOpacity style={{  width: 40, height: 40, backgroundColor: "#e4e4e4", justifyContent: "center", alignItems: "center", margin: 5, borderRadius: 20}}  onPress={() => {router.push('/changepassword')}} >
                         <Ionicons name={'pencil'}  size={20} color="black" />
                       </TouchableOpacity>
                   </View>
-                  <View style={{ height: 1, backgroundColor: 'black' }} />
+                  <View style={{ height: 1, backgroundColor: colorScheme === "dark" ? "white" : "black" }} />
               </View>
 
               {(user?.dateRegister) && ( <UserData header={"Registration date"}  title={ new Date( parseInt(user?.dateRegister)).toLocaleTimeString("en-US", {day: "2-digit",  year: "numeric", month: "long", hour: "numeric", minute: "numeric", hour12: true, })}  /> )} 
-              {(user?.referralCode) && ( <UserData header={"Used referral code"}  title={ user?.referralCode } /> )} 
+              
+
+
+
+              
+
+
+
+              {active ? (
+                <>
+                  {(originalPurchaseDateMillis) && ( <UserData header={"You subscribed on"}  title={ new Date( parseInt(originalPurchaseDateMillis)).toLocaleTimeString("en-US", {day: "2-digit",  year: "numeric", month: "long", hour: "numeric", minute: "numeric", hour12: true, })}  /> )} 
+                  {(expirationDateMillis) && ( <UserData header={"Subscription expires on"}  title={ new Date( parseInt(expirationDateMillis)).toLocaleTimeString("en-US", {day: "2-digit",  year: "numeric", month: "long", hour: "numeric", minute: "numeric", hour12: true, })}  /> )} 
+                  
+                </>
+              ) : (
+                <View style={{ }}>
+                <View style={{flexDirection: "row", }}>
+                    <View style={{ flexGrow: 1, }} >
+                        <Text style={{paddingTop: 8,paddingLeft: 5, color: "gray",fontSize: 12,fontFamily: "Kanit", }}>{ "Subscription" }</Text>
+                        <Text style={{ paddingLeft: 5, fontSize: 15,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>You have no active subscription. </Text>
+                    </View>
+                    <TouchableOpacity style={{  width: 40, height: 40, backgroundColor: "#e4e4e4", justifyContent: "center", alignItems: "center", margin: 5, borderRadius: 20}}  onPress={() => {router.push('/payment')}} >
+                      <Ionicons name={'today'}  size={20} color="black" />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ height: 1, backgroundColor: colorScheme === "dark" ? "white" : "black" }} />
+            </View>
+              )}
+
+
               {(user?.hasReferralCode && remainingTime) && ( <UserData header={"Opportunity to add your referral code expires in"}  title={ remainingTime } /> )}
+              {(user?.referralCode) && ( <UserData header={"Used referral code"}  title={ user?.referralCode } /> )} 
+
+
+
           </View>
         </ScrollView>
 
@@ -137,13 +190,14 @@ export default function HomeScreen() {
 
 
 const UserData = ({ header, title }) => {
+  const colorScheme = useColorScheme();
   return (
     <View style={{ }}>
       <View style={{ }} >
         <Text style={{ paddingTop: 8,paddingLeft: 5, color: "gray",fontSize: 11,fontFamily: "Kanit",}}>{header}</Text>
-        <Text style={{ paddingLeft: 5, fontSize: 15,  marginBottom: 3, color: "black", fontFamily: "Kanit" }}>{ title }</Text>
+        <Text style={{ paddingLeft: 5, fontSize: 15,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>{ title }</Text>
       </View>
-      <View style={{ height: 1, backgroundColor: 'black' }} /> 
+      <View style={{ height: 1, backgroundColor: colorScheme === "dark" ? "white" : "black" }} /> 
     </View>
   );
 };
@@ -155,6 +209,7 @@ const EditUserDate = ({ user, header, previousData, firebaseVariable, numeric=fa
   // const dispatch = useDispatch()
   const [enableEdit, setEnableEdit] = useState(true)
   const [userinformation, setUserInformation] = useState(previousData)
+  const colorScheme = useColorScheme();
   const [disableEditingButton, setDisableEditingButton] = useState(false) 
 
   const editUserInformationBtn = async () => {
@@ -194,7 +249,7 @@ const EditUserDate = ({ user, header, previousData, firebaseVariable, numeric=fa
               <View style={{flexDirection: "row", }}>
                   <View style={{ flexGrow: 1, }} >
                       <Text style={{paddingTop: 8,paddingLeft: 5, color: "gray",fontSize: 12,fontFamily: "Kanit", }}>{ header }</Text>
-                      <Text style={{paddingLeft: 5, fontSize: 16,  marginBottom: 3, color: "black", fontFamily: "Kanit"}}>{ previousData }</Text>
+                      <Text style={{paddingLeft: 5, fontSize: 16,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit"}}>{ previousData }</Text>
                   </View>
 
                   {/* <TouchableOpacity style={{  width: 40, height: 40, backgroundColor: "#e4e4e4", justifyContent: "center", alignItems: "center", margin: 5, borderRadius: 20}}   disabled={disableEditingButton} onPress={editUserInformationBtn}  >
@@ -213,7 +268,7 @@ const EditUserDate = ({ user, header, previousData, firebaseVariable, numeric=fa
    
             </View>
           )}
-      <View style={{ height: 1, backgroundColor: 'black' }} /> 
+      <View style={{ height: 1, backgroundColor: colorScheme === "dark" ? "white" : "black" }} /> 
     </View>
 
   );

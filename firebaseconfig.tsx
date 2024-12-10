@@ -37,6 +37,13 @@ const firebaseConfigSTUDENTS = {
   measurementId: Constants?.expoConfig?.extra?.measurementIdSTUDENTS
 };
 
+// console.log(Constants?.expoConfig?.extra?.apiKeySTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.authDomainSTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.projectIdSTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.storageBucketSTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.messagingSenderIdSTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.appIdSTUDENTS)
+// console.log(Constants?.expoConfig?.extra?.measurementIdSTUDENTS)
 
 const firebaseConfigTEACHERS = {
   apiKey: Constants?.expoConfig?.extra?.apiKeyTEACHERS,
@@ -47,6 +54,14 @@ const firebaseConfigTEACHERS = {
   appId: Constants?.expoConfig?.extra?.appIdTEACHERS,
   measurementId: Constants?.expoConfig?.extra?.measurementIdTEACHERS
 };
+
+// console.log(Constants?.expoConfig?.extra?.apiKeyTEACHERS)
+// console.log(Constants?.expoConfig?.extra?.authDomainTEACHERS)
+// console.log(Constants?.expoConfig?.extra?.projectIdTEACHERS)
+// console.log(Constants?.expoConfig?.extra?.storageBucketTEACHERS)
+// console.log(Constants?.expoConfig?.extra?.messagingSenderIdTEACHERS)
+// console.log( Constants?.expoConfig?.extra?.appIdTEACHERS)
+// console.log(Constants?.expoConfig?.extra?.measurementIdTEACHERS)
 
 // Initialize Firebase
 export const appSTUDENTS  = initializeApp(firebaseConfigSTUDENTS, 'studentsApp') 

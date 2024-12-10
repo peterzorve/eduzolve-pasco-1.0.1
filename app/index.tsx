@@ -5,9 +5,12 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Animated, { FadeInUp  } from "react-native-reanimated"; 
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { SET_USER } from "@/assets/context/actions/userActions";
+import { SET_USER, SET_SUBSCRIPTION_STATUS } from "@/assets/context/actions/userActions";
 import { useDispatch } from "react-redux"; 
+// import { SET_USER,  } from "@/assets/context/actions/userActions"
 import * as Device from 'expo-device'
+
+import Purchases, { PurchasesOffering} from "react-native-purchases";
 
 
 
@@ -23,7 +26,7 @@ const SplashScreen = () => {
 
   const deviceModelName = Device?.modelName
   const deviceOsInternalBuildId = Device?.osInternalBuildId
-  const deviceSsVersion = Device?.osVersion
+  // const deviceSsVersion = Device?.osVersion
 
   
 
@@ -125,13 +128,31 @@ const SplashScreen = () => {
                 if (appVersionNumber === "1.0.0") { 
 
                   const deviceInfo = docSnap?.data();
-                  if ((deviceInfo?.deviceModelName === deviceModelName) && (deviceInfo?.deviceOsInternalBuildId === deviceOsInternalBuildId) && (deviceInfo?.deviceSsVersion === deviceSsVersion)) {
+                  if ((deviceInfo?.deviceID === (deviceModelName + deviceOsInternalBuildId))) {
+                    
+            
+                    await Purchases.logIn(docSnap?.data()?._id)
+                    const customerInfo = await Purchases.getCustomerInfo();
+                    dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
                     router.replace('/(drawer)') 
+
+
+
                   } else {
                     if (deviceInfo?.changeDevice) {
                       try {
-                        await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  deviceInfo?._id), {deviceModelName: deviceModelName, deviceOsInternalBuildId: deviceOsInternalBuildId, deviceSsVersion: deviceSsVersion, changeDevice: false})
+                        await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  deviceInfo?._id), {ddeviceID: deviceModelName + deviceOsInternalBuildId, changeDevice: false, })
+                        
+                
+                        await Purchases.logIn(docSnap?.data()?._id)
+                        const customerInfo = await Purchases.getCustomerInfo();
+                        dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
                         router.replace('/(drawer)')
+
+
+                        
+
+
                       } catch (error) {
                         alert("Try again later. \nSomething went wrong")
                       }
@@ -154,6 +175,9 @@ const SplashScreen = () => {
             }
           } catch (error) {
             router.replace('/login')
+
+            
+            // router.replace('/deviceid') 
           }    
         } else {
             setDigit1(""); setDigit2(""); setDigit3(""); setDigit4("");  
@@ -163,6 +187,7 @@ const SplashScreen = () => {
             }
             if (numberOfAtempts >= MaxAttempts) {
               router.replace('/login')
+              // router.replace('/deviceid') 
             }
         }
       };

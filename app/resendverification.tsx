@@ -16,7 +16,7 @@ import useInactivityLogout from '@/components/useInactivityLogout';
 
 const ResendVerificationEmail = () => {
   const router = useRouter();
-  useInactivityLogout(5 * 60 * 1000);  
+  useInactivityLogout(5);  
 
   const [email, setEmail] = useState(""); 
   const [password, setPassword] = useState("");

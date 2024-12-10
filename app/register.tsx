@@ -18,12 +18,16 @@ const RegisterScreen = () => {
   const router = useRouter();
   const {height}   = useWindowDimensions()
 
-  useInactivityLogout(5 * 60 * 1000);  
+  useInactivityLogout(5);  
 
 
   const deviceModelName = Device?.modelName
   const deviceOsInternalBuildId = Device?.osInternalBuildId
-  const deviceSsVersion = Device?.osVersion
+  // const deviceSsVersion = Device?.osVersion
+
+
+
+
 
 
 
@@ -88,7 +92,7 @@ const RegisterScreen = () => {
     // if (hasReferralCode && !referralCode) { setReferralCodeIsEmpty(true);  setReferralCodeBorderRds("red")}
 
 
-    if (deviceModelName && deviceOsInternalBuildId && deviceSsVersion) {
+    if (deviceModelName && deviceOsInternalBuildId) {
       if (username.trim() && email.trim() && password && passwordrepeat ) { 
         if (password === passwordrepeat) { 
           if (password.length < 8 ) { setPasswordIsLong(true);  setPasswordBorderRds("red"); setPasswordRepeatBorderRds("red");  } 
@@ -96,14 +100,18 @@ const RegisterScreen = () => {
           
 
           else { 
-
+            
               setDisableButton(true);
               setButtonText("Registering. Please wait!!!")
                 try {
                   const userCredential = await createUserWithEmailAndPassword(authSTUDENTS, email, password)
+             
+                  
                   const data = { _id: userCredential?.user?.uid, username: capitalizeName(username.trim()),  email: email.trim().toLowerCase(),  dateRegister: `${Date.now()}`, emailVerified: userCredential?.user?.emailVerified,  shortPswd: "", 
                                   paidSubscription: false, paidAmount: 0.00, 
-                                  deviceModelName: deviceModelName, deviceOsInternalBuildId: deviceOsInternalBuildId, deviceSsVersion: deviceSsVersion, changeDevice: false, 
+                                  // deviceModelName: deviceModelName, deviceOsInternalBuildId: deviceOsInternalBuildId, deviceSsVersion: deviceSsVersion, 
+                                  
+                                  deviceID: deviceModelName + deviceOsInternalBuildId, changeDevice: false, 
                                   hasReferralCode: hasReferralCode, referralCode: ""
                                 } 
 

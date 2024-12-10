@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AppState, PanResponder, Keyboard } from 'react-native';
 import { useRouter } from 'expo-router';
 
-const useInactivityLogout = (timeoutDuration = 30 * 60 * 1000) => {
+const useInactivityLogout = (timeoutDurationInMinutes = 30) => {
   const [appState, setAppState] = useState(AppState.currentState);
   const inactivityTimeout = useRef(null);
   const router = useRouter();
@@ -22,7 +22,7 @@ const useInactivityLogout = (timeoutDuration = 30 * 60 * 1000) => {
   // Reset inactivity timer
   const resetInactivityTimeout = () => {
     clearInactivityTimeout();
-    inactivityTimeout.current = setTimeout(logOut, timeoutDuration);
+    inactivityTimeout.current = setTimeout(logOut, timeoutDurationInMinutes * 60 * 1000);
   };
 
   // Set up global interaction listeners

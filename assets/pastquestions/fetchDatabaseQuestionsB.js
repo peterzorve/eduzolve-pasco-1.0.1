@@ -6,17 +6,23 @@ import { INTEGRATEDSCIENCEBDATABASE, yearsINTEGRATEDSCIENCEB }  from '@/assets/p
 import { SOCIALSTUDIESBDATABASE, yearsSOCIALSTUDIESB }          from '@/assets/pastquestions/socialstudiesB/SOCIALSTUDIESBDATABASE';
 
 
-export const fetchDatabaseQuestionsB = (subject) => {
+export const fetchDatabaseQuestionsB = (subject, isSubscribed=false) => {
+    let notSubscribed = 5;
     if (subject === "ENGLISHLANGUAGE") {
-        return [ENGLISHLANGUAGEBDATABASE, yearsENGLISHLANGUAGEB ]
+        const [database, years] = isSubscribed ? [ENGLISHLANGUAGEBDATABASE, yearsENGLISHLANGUAGEB]  : [ENGLISHLANGUAGEBDATABASE, yearsENGLISHLANGUAGEB.slice(0, notSubscribed)];
+        return [database, years];
     }
     if (subject === "COREMATHEMATICS") {
-        return [COREMATHEMATICSBDATABASE, yearsCOREMATHEMATICSB ]
+        const [database, years] = isSubscribed ? [COREMATHEMATICSBDATABASE, yearsCOREMATHEMATICSB]  : [COREMATHEMATICSBDATABASE, yearsCOREMATHEMATICSB.slice(0, notSubscribed)];
+        return [database, years];
     }
     if (subject === "INTEGRATEDSCIENCE") {
-        return [INTEGRATEDSCIENCEBDATABASE, yearsINTEGRATEDSCIENCEB ]
+        const [database, years] = isSubscribed ? [INTEGRATEDSCIENCEBDATABASE, yearsINTEGRATEDSCIENCEB]  : [INTEGRATEDSCIENCEBDATABASE, yearsINTEGRATEDSCIENCEB.slice(0, notSubscribed)];
+        return [database, years];
     }
     if (subject === "SOCIALSTUDIES") {
-        return [SOCIALSTUDIESBDATABASE, yearsSOCIALSTUDIESB ]
+        const [database, years] = isSubscribed ? [SOCIALSTUDIESBDATABASE, yearsSOCIALSTUDIESB]  : [SOCIALSTUDIESBDATABASE, yearsSOCIALSTUDIESB.slice(0, notSubscribed)];
+        return [database, years];
     }
 }
+

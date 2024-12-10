@@ -20,14 +20,20 @@ import { usePreventScreenCapture } from 'expo-screen-capture';
 import { fetchDatabaseQuestionsA } from "@/assets/pastquestions/fetchDatabaseQuestionsA"
 
 import SubjectLogo from '@/components/TextLogo';
+import { useSelector } from "react-redux";
 
 
 
 export default function HomeScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
-  useInactivityLogout(30 * 60 * 1000);
+  useInactivityLogout(30);
   usePreventScreenCapture()
+
+  const subscriptionStatus = useSelector((state) => state.subscription.status);
+  const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false
+  const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
+  const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
   
   const { width, height } = Dimensions.get('window');
   const {subjectInfoObj } = useLocalSearchParams();
@@ -40,7 +46,7 @@ export default function HomeScreen() {
   const [subjectYear, setSubjectYear] = useState([])
 
   useEffect(() => {  
-    const [fetchedQuestions, fetchedYears] = fetchDatabaseQuestionsA(subjectInfo?.shortName);
+    const [fetchedQuestions, fetchedYears] = fetchDatabaseQuestionsA(subjectInfo?.shortName, active);
     setQuestionsDatabase(fetchedQuestions);                                
     setSubjectYear(fetchedYears);
   }, [ subjectInfo?.shortName ]);
@@ -51,8 +57,19 @@ export default function HomeScreen() {
         const lengthOfYears = subjectYear.length
         const index = subjectYear.findIndex(item => item.label === year);
         setQuestions(questionsDatabase[subjectInfo?.shortName + "A" + year])
-        if (index === 0) { setPreviousBtnColor("white")}
-        if (index === lengthOfYears-1) { setNextBtnColor("white")}
+        if (index === 0) { 
+            setPreviousBtnColor("white");
+            setNextBtnColor("black");
+          } else if (index === lengthOfYears-1) { 
+            setPreviousBtnColor("black");
+            setNextBtnColor("white");
+          } else {
+            setPreviousBtnColor("black");
+            setNextBtnColor("black")
+          }
+        } else {
+          setPreviousBtnColor("white");
+          setNextBtnColor("white");
         }
       }, [year]);
 
@@ -87,15 +104,19 @@ export default function HomeScreen() {
     setSelectedOptions({ ...selectedOptions, [questionIndex]: option, });
   };
 
+
   const handleSubmit = () => { 
     if (submitBtnText === "Submit") {
       let correctAnswers = 0;        
       questions.forEach((question, index) => { if (selectedOptions[index] === question.correctOption) {  correctAnswers++ ;   } })
       setIsModalVisible(true);  setScore(correctAnswers);  setShowResults(true);  setSubmitBtnText("Try again");
     } else if (submitBtnText === "Try again") {
-      setSelectedOptions({});  setScore(0);  setShowResults(false);  setSubmitBtnText("Submit")
+      setSelectedOptions({});  setScore(0);  setShowResults(false);  setSubmitBtnText("Submit");
     }
   }
+
+  
+ 
 
 
   // ======  Modal =============================================================================================================
@@ -115,14 +136,39 @@ export default function HomeScreen() {
 <>
       <ParallaxScrollView headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }} headerImage={ <Image source={require('@/assets/images/splash/splash6.png')} style={styles.reactLogo} />  }>
         <View style={{ marginBottom: 0, alignItems: "center",     width: "100%",  }}>
+            
+            <View  style={{ flexDirection: 'row',  alignSelf: "center",  borderRadius: 10, marginHorizontal: -8 }} >
+              <TouchableOpacity disabled={active} onPress={() => { router.back() }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: "gray", padding: 3 }}>
+                <Ionicons name={'arrow-undo-circle'}  size={24} color="white" style={{ }}/>
+                <Text style={{   fontFamily: "Kanit", fontSize: 10,  paddingHorizontal: 3, color:"white" }}>Back</Text> 
+              </TouchableOpacity>
+                <View style={{ flex: 1 }} >
+                  <Text style={{ paddingLeft: 5, fontSize: 10,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>{active ? "Active subscription. \nAccess to ALL available years." : "Inactive subscription. \nAccess limited to ONLY FIVE years"}</Text>
+                </View>
+              <TouchableOpacity disabled={active} onPress={() => { router.push('/payment') }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: active ? "green" : "red", padding: 3 }}>
+                <Ionicons name={active ? 'lock-open' : 'lock-closed'}  size={24} color="white" style={{ }}/>
+                <Text style={{   fontFamily: "Kanit", fontSize: 8,  paddingHorizontal: 3, color:"white" }}>{ active ? "Active" : "Inactive"}{"\n"}Subsciption</Text> 
+              </TouchableOpacity>
+            </View>
+
+            <View style={{backgroundColor: "#d4d4d4", height: 2, width: "100%", marginVertical: 10}} >
+
+            </View>
+
+
+
             <View style={{ width: '100%', alignSelf: 'center', paddingVertical: 3,  backgroundColor:  "rgba(255, 255, 255, 1)", margin: 1, borderRadius: 10, borderColor: "gray", borderWidth: 0 }} >
+
+
+
+
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity onPress={previousQuestion} style={{  justifyContent: "center",   height: 30, borderRadius: 10,  }}>
                         <Ionicons name="arrow-back" size={30} color={previousBtnColor} style={{paddingHorizontal: 10}} />
                     </TouchableOpacity>
 
                     <Dropdown  style={{flexGrow: 1, }}   placeholder={'Select year'}  search  value={year}  onChange={(item) => setYear(item.value)}  data={subjectYear} searchPlaceholder="Search"  
-                      maxHeight={400}  labelField="label"  valueField="value"  selectedTextStyle={{ textAlign: "center", fontWeight: "bold", fontSize: 30 }}  placeholderStyle={{ textAlign: "center", }}   inputSearchStyle={{ textAlign: "center" }}
+                      maxHeight={400}  labelField="label"  valueField="value"  selectedTextStyle={{ textAlign: "center", fontWeight: "bold", fontSize: 30 }}  placeholderStyle={{ textAlign: "center", fontSize: 24, fontFamily: "Kanit", color: "green" }}   inputSearchStyle={{ textAlign: "center" }}
                       renderItem={(item) => (
                         <View style={{ alignItems: 'center', height: 40, justifyContent: 'center', }}>
                             <Text style={{ fontSize: 20, fontFamily: "Kanit" }}>{item.label}</Text>
@@ -135,16 +181,23 @@ export default function HomeScreen() {
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <View style={{backgroundColor: "#d4d4d4", height: 2, width: "100%", marginVertical: 10}} >
+            </View>
+
+
+
         </View>
         
         <ThemedView style={styles.titleContainer}>
-          <ThemedText type="title">{ subjectInfo?.subjectName } </ThemedText>
-          <SubjectLogo text={subjectInfo?.subjectName}/>
-        </ThemedView>
+                <ThemedText type="title">{ subjectInfo?.subjectName } </ThemedText>
+                <SubjectLogo text={subjectInfo?.subjectName}/>
+              </ThemedView>
 
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="subtitle">Objectives</ThemedText>
-        </ThemedView>
+              <ThemedView style={styles.titleContainer}>
+                <ThemedText type="subtitle">Objectives</ThemedText>
+              </ThemedView>
+
 
         {questions?.length === 0  && (
             <View style={{  marginVertical: 10,  }} >
@@ -217,19 +270,26 @@ export default function HomeScreen() {
 
         { year && (
             <TouchableOpacity onPress={ handleSubmit } style={{ backgroundColor: "green", padding: 8, marginVertical: 5, marginHorizontal: 20, width: "105%", alignSelf: "center", borderRadius: 20, }}>
-              <Text style={{textAlign: "center", color: "white", fontWeight: "Inconsolata", fontSize: 16}}>{submitBtnText}</Text> 
+              <Text style={{textAlign: "center", color: "white",  fontSize: 16}}>{submitBtnText}</Text> 
             </TouchableOpacity>
         )}
 
         <Modal isVisible={isModalVisible} style={{}} >
-          <View style={{backgroundColor: "black", borderRadius: 20, width: "60%", alignSelf: "center" }} >
-            <TouchableOpacity onPress={() => {setIsModalVisible(false); setGradingSystem(false)}} style={{backgroundColor: "green", borderTopLeftRadius: 20, borderTopEndRadius: 20  }} >
-              <Ionicons name={'close'} size={30} color="white" style={{ marginRight: 10, alignSelf: "flex-end", }}/>
-            </TouchableOpacity> 
-            <View  style={{ paddingVertical: 10, justifyContent: "center", alignItems: "center",   backgroundColor: "#f4f4f4", borderBottomLeftRadius: 20, borderBottomEndRadius: 20, paddingBottom: 20 }} >
+          <View style={{backgroundColor: "black", borderRadius: 20, width: "90%", alignSelf: "center", borderBottomLeftRadius: 20 }} >
+            <View style={{ flexDirection: "row", backgroundColor: "green", borderTopLeftRadius: 20, borderTopEndRadius: 20}}> 
+              <View style={{flex: 1, justifyContent: "center"}} >
+                  <Text style={{textAlign: "center", fontSize: 22, padding: 10, fontFamily: "Kanit"}} >
+                    Test Result
+                  </Text>
+              </View >
+              <TouchableOpacity onPress={() => { setIsModalVisible(false); setGradingSystem(false); }} style={{   justifyContent: "center", backgroundColor: "red", margin: 5, borderRadius: 30  }} >
+                <Ionicons name={'close'} size={34} color="white" style={{ padding: 5,  alignSelf: "center", }}/>
+              </TouchableOpacity> 
+            </View>
+            <View  style={{ paddingVertical: 10, justifyContent: "center", alignItems: "center",   backgroundColor: "#f4f4f4",  paddingBottom: 20, borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }} >
               <View style={{ flexDirection: "row", }}>  
                 <View style={{ marginRight: 5, marginLeft: -15 }}>
-                    <Text style={{color: "green", textAlign: "center",  fontFamily: "Kanit", fontSize: 16}}>Score </Text>
+                    <Text style={{color: "green", textAlign: "center",  fontFamily: "Kanit", fontSize: 16}}>Score</Text>
                 </View>     
                 <View style={{ width: 80, height: 80, borderRadius: 60, borderWidth: 5, borderColor: "green", justifyContent: "center" }}>
                     <Text style={{color: "green", textAlign: "center",  fontFamily: "Kanit", fontSize: 40}}>{score}</Text>
@@ -238,9 +298,39 @@ export default function HomeScreen() {
                     <Text  style={{textAlign: "center", fontFamily: "Kanit", fontSize: 16, fontWeight: 500}}>/{(questions.length)}</Text>  
                 </View>
               </View>
+
+
+                {(active === false) && (
+                    <View style={{borderRadius: 20, alignSelf: "center", marginTop: 30, width: "100%" }} >
+
+                        <View style={{  }}>
+                            <Text style={{color: "green", textAlign: "center",  fontFamily: "Kanit", fontSize: 14, padding: 10}}>You do not have an active subscription. Subscribe to unlock all the PRO features.</Text>
+                        </View>     
+                            <View style={{flexDirection: "row", marginBottom: 20}} >
+                              <TouchableOpacity onPress={() => { router.push("/(drawer)/payment"); }} style={{backgroundColor: "green", flex: 1, marginHorizontal: 20, justifyContent: "center", borderRadius: 10  }} >
+                              <Text style={{padding: 10, textAlign: "center",  fontFamily: "Kanit", }} >
+                                Subscribe
+                              </Text>
+                              </TouchableOpacity> 
+                              <TouchableOpacity onPress={() => {setIsModalVisible(false)}} style={{backgroundColor: "red", flex: 1, marginHorizontal: 20, justifyContent: "center", borderRadius: 10  }} >
+                              <Text  style={{padding: 10, textAlign: "center",  fontFamily: "Kanit", }} >
+                                Cancel
+                              </Text>
+                              </TouchableOpacity>
+                            </View>
+
+                    </View> 
+                )}
+
+
+
             </View>
+
+            
           </View> 
         </Modal>
+
+    
 
   
 

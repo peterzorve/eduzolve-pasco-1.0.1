@@ -8,7 +8,8 @@ import { useRouter } from 'expo-router';
 import Animated, { FadeInUp  } from "react-native-reanimated"; 
 import { Ionicons } from '@expo/vector-icons';
 
-import { SET_USER } from "@/assets/context/actions/userActions"
+import { SET_USER, SET_SUBSCRIPTION_STATUS } from "@/assets/context/actions/userActions"
+import { PreventScreenshots } from 'react-native-prevent-screenshots';
 
 import { useDispatch } from 'react-redux';
 
@@ -19,20 +20,26 @@ import * as Device from 'expo-device'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+import Purchases, { PurchasesOffering} from "react-native-purchases";
+
 
 const LoginScreen = () => {
+
     const {height} = useWindowDimensions()
     const router = useRouter();
     const dispatch = useDispatch();
+ 
 
     const deviceModelName = Device?.modelName
     const deviceOsInternalBuildId = Device?.osInternalBuildId
-    const deviceSsVersion = Device?.osVersion
+    // const deviceSsVersion = Device?.osVersion
 
   
 
     const [email, setEmail] = useState(""); 
     const [password, setPassword] = useState("");
+
+
 
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -60,7 +67,8 @@ const LoginScreen = () => {
 
           
           if (docSnap.exists()) { 
-            dispatch(SET_USER(docSnap.data()));
+            dispatch( SET_USER(docSnap.data()) );
+            
             if (userCredential?.user?.emailVerified) {
               
               let verifiedData = await getDoc(doc(dbSTUDENTS, "eduzolve-users", userCredential?.user?.uid,)); 
@@ -89,14 +97,36 @@ const LoginScreen = () => {
                   if (appVersionNumber === "1.0.0") {
   
                     const deviceInfo = verifiedData?.data();
-                    if ((deviceInfo?.deviceModelName === deviceModelName) && (deviceInfo?.deviceOsInternalBuildId === deviceOsInternalBuildId) && (deviceInfo?.deviceSsVersion === deviceSsVersion)) {
-                      router.replace('/(drawer)') 
+
+                    if (deviceInfo?.deviceID === (deviceModelName + deviceOsInternalBuildId)) { 
+
+
+                      await Purchases.logIn(deviceInfo?._id);
+                      const customerInfo = await Purchases.getCustomerInfo();
+                      dispatch( SET_SUBSCRIPTION_STATUS(customerInfo) );
+
+                      
+
+                      
+                      router.replace('/(drawer)');
+                      
+     
+
+
                     } else {
                         if (deviceInfo?.changeDevice) {
                         try {
-                          await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  deviceInfo?._id), {deviceModelName: deviceModelName, deviceOsInternalBuildId: deviceOsInternalBuildId, deviceSsVersion: deviceSsVersion, changeDevice: false})
+                          await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  deviceInfo?._id), {deviceID: deviceModelName + deviceOsInternalBuildId, changeDevice: false, })
                           // alert("Device has been registered! \nTry your login should work now")
-                          router.replace('/(drawer)') 
+
+
+                          await Purchases.logIn(deviceInfo?._id);
+                          const customerInfo = await Purchases.getCustomerInfo();
+                          dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
+
+                          router.replace('/(drawer)');
+                      
+                          
                         } catch (error) {
                           alert("Try again later. \nSomething went wrong")
                         }

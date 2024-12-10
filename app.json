@@ -2,7 +2,7 @@
   "expo": {
     "name": "EduZolve PastQuo",
     "slug": "eduzolve-pastquo",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -14,8 +14,8 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.zorvepeter.eduzolvepastquo",
-      "buildNumber": "3",
+      "bundleIdentifier": "com.eduzolve.eduzolvepastquo",
+      "buildNumber": "1",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to your camera to take profile pictures.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload pictures.",
@@ -33,7 +33,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.zorvepeter.eduzolvepastquo"
+      "package": "com.eduzolve.eduzolvepastquo"
     },
     "web": {
       "bundler": "metro",
@@ -45,35 +45,43 @@
       [
         "expo-build-properties",
         {
+          "android": {
+            "minSdkVersion": 24
+          },
           "ios": {
             "useFrameworks": "static"
           }
         }
-      ]
+      ],
+      "expo-secure-store"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
+      "apiKeySTUDENTS": "AIzaSyDvW4GnmnrakkqEWQPfI5jjLf9JyrjM1Iw",
+      "authDomainSTUDENTS": "eduzolve-pastquo-student-cdff9.firebaseapp.com",
+      "projectIdSTUDENTS": "eduzolve-pastquo-student-cdff9",
+      "storageBucketSTUDENTS": "eduzolve-pastquo-student-cdff9.firebasestorage.app",
+      "messagingSenderIdSTUDENTS": "368843743556",
+      "appIdSTUDENTS": "1:368843743556:web:2dc85d883eb56736227711",
+      "measurementIdSTUDENTS": "G-4G6WH2NSED",
 
-      "apiKeySTUDENTS": "AIzaSyCu1GVnoC8G1xlm3tU9A1Yp93oh8ALEzq8",
-      "authDomainSTUDENTS": "eduzolve-pastquo-students.firebaseapp.com",
-      "projectIdSTUDENTS": "eduzolve-pastquo-students",
-      "storageBucketSTUDENTS": "eduzolve-pastquo-students.appspot.com",
-      "messagingSenderIdSTUDENTS": "169306470812",
-      "appIdSTUDENTS": "1:169306470812:web:db4077816e1919acfcb059",
-      "measurementIdSTUDENTS": "G-94WZQBKHY7",
+      "apiKeyTEACHERS": "AIzaSyAMQUiuHFPZiOpmZMYc3WCKZapqROXTlHk",
+      "authDomainTEACHERS": "eduzolve-pastquo-referra-4d3e9.firebaseapp.com",
+      "projectIdTEACHERS": "eduzolve-pastquo-referra-4d3e9",
+      "storageBucketTEACHERS": "eduzolve-pastquo-referra-4d3e9.firebasestorage.app",
+      "messagingSenderIdTEACHERS": "682202203177",
+      "appIdTEACHERS": "1:682202203177:web:63aaf42aeac2953fed0838",
+      "measurementIdTEACHERS": "G-JL12CBJT15",
 
-      "apiKeyTEACHERS": "AIzaSyDtWtRT_ySdr76-CceSjIJLQrXRbCotRsY",
-      "authDomainTEACHERS": "eduzolve-pastquo-referrals.firebaseapp.com",
-      "projectIdTEACHERS": "eduzolve-pastquo-referrals",
-      "storageBucketTEACHERS": "eduzolve-pastquo-referrals.appspot.com",
-      "messagingSenderIdTEACHERS": "671840169810",
-      "appIdTEACHERS": "1:671840169810:web:eac8a12c1acd539aae948b",
-      "measurementIdTEACHERS": "G-31PY7KDSN4",
-    
+      "revenueCatIosApiKey": "appl_khPGcxugDDqXOzMwjzrDrPBQOVz", 
+      "revenueCatAndroidApiKey": "goog_cWFsdrbUNYbogzUdSUWfrnhWdXY",
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "7a00fd9b-fd56-4d0b-b608-2844f897d423"
+        "projectId": "147b02f1-84dc-45c1-a50d-68085bdefa69"
       }
     }
   }

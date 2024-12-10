@@ -25,7 +25,7 @@ const ReferralCodeScreen = () => {
   const {height}   = useWindowDimensions()
   const user = useSelector((state) => state.user.user);
   const dispatch   = useDispatch()
-  useInactivityLogout(10 * 60 * 1000);  
+  useInactivityLogout(10);  
 
   // const [referralCode, setReferralCode] = useState("eduzolve-peterzorve-h3m4bucn");
   const [referralCode, setReferralCode] = useState("");

@@ -1,0 +1,46 @@
+
+=== Installations =======================================================================================================
+npx create-expo-app@latest
+npx expo install @react-navigation/drawer react-native-gesture-handler react-native-reanimated
+npm install --save firebase @react-native-firebase/app @react-native-firebase/auth @react-native-firebase/firestore
+expo install @react-native-async-storage/async-storage
+npm install redux
+npm install react-redux
+npm install @stripe/stripe-react-native
+npm install react-native-modal
+npx expo install expo-screen-capture
+
+npm install expo
+npx expo install expo-device
+npm install --save react-native-device-info
+
+npm install react-native-prevent-screenshots --save
+
+
+
+npx expo start
+
+npx expo install --check
+expo add expo-build-properties
+
+npm install -g eas-cli
+eas build:configure
+eas build --platform ios
+eas submit -p ios --latest
+
+
+
+=== EXPO-DEV-CLIENT =======================================================================================================
+npx expo install react-native-purchases react-native-purchases-ui
+
+
+npm install expo-dev-client
+eas device:create
+
+eas build -p ios --profile development
+eas build -p android --profile development
+
+npx expo start
+expo start --dev-client
+
+

@@ -1,4 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Image, StyleSheet, Platform, ScrollView, TouchableOpacity, Text, View, useWindowDimensions  } from 'react-native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -6,14 +7,23 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { Provider } from 'react-redux';
 
+import { withPreventScreenshots } from 'react-native-prevent-screenshots';  
+
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Constants from 'expo-constants';
+
+import Purchases, { PurchasesOffering} from "react-native-purchases";
 
 import Store from "@/assets/context/store"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function RootLayout() { 
+
+
+  // export default function RootLayout() {
+  
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('@/assets/fonts/SpaceMono-Regular.ttf'),
@@ -34,9 +44,24 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
+
+  useEffect(() => {
+    if (Platform.OS === 'ios') {
+        // Purchases.configure({ apiKey: "appl_dBSdjxTFtQgzyqDHejIQa321WENeIr",  appUserID: user?._id, });
+        Purchases.configure({ apiKey: Constants?.expoConfig?.extra?.revenueCatIosApiKey });
+    } else if (Platform.OS === 'android') {
+        // Purchases.configure({ apiKey: "goog_HUKTRarPFGDpdkcqHECQKo123JBUNQ",  appUserID: user?._id, });
+        Purchases.configure({ apiKey: Constants?.expoConfig?.extra?.revenueCatAndroidApiKey });
+    }
+  }, []);
+
+
+
   if (!loaded) {
     return null;
   }
+
+
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -48,7 +73,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabsPastQuestions)"  options={{ headerShown: false, }} />
           <Stack.Screen name="(drawer)"             options={{ headerShown: false,  }} /> 
           <Stack.Screen name="login"                options={{ headerShown: false, title: "Login",  }} />
-          <Stack.Screen name="deviceid"             options={{ headerShown: true, title: "Check Device ID",  }} />
+          {/* <Stack.Screen name="deviceid"             options={{ headerShown: true, title: "Check Device ID",  }} /> */}
           <Stack.Screen name="addreferralcode"      options={{ headerShown: true, title: "",  }} />
           <Stack.Screen name="resendverification"      options={{ headerShown: true, title: "Resend verification email",  }} />
           {/* <Stack.Screen name="profile"      options={{ headerShown: true, title: "Profile",  }} /> */}
@@ -58,3 +83,5 @@ export default function RootLayout() {
     </ThemeProvider>
   );
 }
+
+// export default withPreventScreenshots(RootLayout);
