@@ -1,7 +1,7 @@
 // import { Image, StyleSheet, Platform } from 'react-native';
 import React, { useState, useEffect } from 'react'
 // import ScreenshotDetector from 'react-native-screenshot-detector';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, useColorScheme } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions, useColorScheme, Platform } from 'react-native'
 import { Dropdown } from 'react-native-element-dropdown';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
@@ -15,12 +15,16 @@ import useInactivityLogout from '@/components/useInactivityLogout';
 
 import Modal from "react-native-modal";
 import gifImageSectionA from "@/assets/images/gif-images/sectionA.gif"
-import { usePreventScreenCapture } from 'expo-screen-capture';
+// import { usePreventScreenCapture } from 'expo-screen-capture';
 
 import { fetchDatabaseQuestionsA } from "@/assets/pastquestions/fetchDatabaseQuestionsA"
 
 import SubjectLogo from '@/components/TextLogo';
 import { useSelector } from "react-redux";
+
+
+import { usePreventScreenCapture } from 'expo-screen-capture';
+import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
 
 
 
@@ -44,6 +48,19 @@ export default function HomeScreen() {
   const [previousBtnColor, setPreviousBtnColor] = useState("black")
   const [nextBtnColor, setNextBtnColor] = useState("black")
   const [subjectYear, setSubjectYear] = useState([])
+
+
+     usePreventScreenCapture();
+      const ScreenshotPrevention = () => {
+       if (Platform.OS === 'ios') {
+          enableSecureView();
+        }
+      };
+      useEffect(() => {
+        ScreenshotPrevention()
+      }, []);
+
+
 
   useEffect(() => {  
     const [fetchedQuestions, fetchedYears] = fetchDatabaseQuestionsA(subjectInfo?.shortName, active);
@@ -138,7 +155,7 @@ export default function HomeScreen() {
         <View style={{ marginBottom: 0, alignItems: "center",     width: "100%",  }}>
             
             <View  style={{ flexDirection: 'row',  alignSelf: "center",  borderRadius: 10, marginHorizontal: -8 }} >
-              <TouchableOpacity disabled={active} onPress={() => { router.back() }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: "gray", padding: 3 }}>
+              <TouchableOpacity onPress={() => { router.back() }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: "gray", padding: 3 }}>
                 <Ionicons name={'arrow-undo-circle'}  size={24} color="white" style={{ }}/>
                 <Text style={{   fontFamily: "Kanit", fontSize: 10,  paddingHorizontal: 3, color:"white" }}>Back</Text> 
               </TouchableOpacity>
@@ -151,10 +168,17 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
 
+            { (active === false) && (
+              <View style={{flex: 1, width: "102%"}} >
+                <Text style={{ fontFamily: "Kanit", fontSize: 12,  color: colorScheme === "dark" ? "white" : "black", marginVertical: 10}} >
+                  You need an active subscription to access all available years. {"\n"}
+                  Currently, you can only access the past 5 years.
+                </Text>
+                </View>
+              )}
             <View style={{backgroundColor: "#d4d4d4", height: 2, width: "100%", marginVertical: 10}} >
 
             </View>
-
 
 
             <View style={{ width: '100%', alignSelf: 'center', paddingVertical: 3,  backgroundColor:  "rgba(255, 255, 255, 1)", margin: 1, borderRadius: 10, borderColor: "gray", borderWidth: 0 }} >
@@ -180,6 +204,7 @@ export default function HomeScreen() {
                         <Ionicons name="arrow-forward" size={30} color={nextBtnColor} style={{paddingHorizontal: 10}} />
                     </TouchableOpacity>
                 </View>
+
             </View>
 
             <View style={{backgroundColor: "#d4d4d4", height: 2, width: "100%", marginVertical: 10}} >

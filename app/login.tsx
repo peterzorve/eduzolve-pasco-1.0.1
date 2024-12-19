@@ -23,6 +23,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import Purchases, { PurchasesOffering} from "react-native-purchases";
 
 
+// import { disallowScreenshot, keepAwake } from 'react-native-screen-capture';
+import { usePreventScreenCapture } from 'expo-screen-capture';
+import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
+// import ScreenshotPrevent from 'react-native-screenshot-prevent';
+// import ScreenshotPrevent, { ScreenshotPreventEvents } from 'react-native-screenshot-prevent';
+// import PreventScreenshot from 'react-native-prevent-screenshot-ios-android';
+
+
 const LoginScreen = () => {
 
     const {height} = useWindowDimensions()
@@ -34,6 +42,47 @@ const LoginScreen = () => {
     const deviceOsInternalBuildId = Device?.osInternalBuildId
     // const deviceSsVersion = Device?.osVersion
 
+    // usePreventScreenCapture();
+    // const ScreenshotPrevention = () => {
+    //  if (Platform.OS === 'ios') {
+    //     enableSecureView();
+    //   }
+    // };
+
+    // useEffect(() => {
+    //   ScreenshotPrevention()
+    // }, []);
+
+
+
+    // useEffect(() => {
+    //   enableSecureView();
+    //   if (Platform.OS == 'ios') {
+    //     console.log(Platform.OS)
+    //   }
+    // }, []);
+
+  
+
+
+
+    // disallowScreenshot(true);
+    // ScreenshotPrevent.enabled(true);
+
+    // if (Platform.OS === 'android') {
+    //   forbidAndroidShare(); //This function blocks the Screen share/Recording and taking screenshot for android devices.
+    //   allowAndroidShare(); //This function allows to provide back the Screen share/Recording and screenshot functionality for android devices
+    // }
+    // if (Platform.OS == 'ios') {
+    //   console.log("peter")
+    //   enableSecureView(); //This function blocks the Screen share/Recording and taking screenshot for iOS devices.
+    //   disableSecureView(); //This function allows to provide back the Screen share/Recording and screenshot functionality for iOS devices
+    //   console.log("zorve")
+    // }
+
+    // useEffect(() => {
+    //   enableSecureView();
+    // }, []);
   
 
     const [email, setEmail] = useState(""); 
@@ -141,7 +190,7 @@ const LoginScreen = () => {
                   }
                 } 
                 else {
-                  alert("Check your internet connection")
+                  alert("Something went wrong\nCheck your internet connection")
   
               }
 
@@ -233,7 +282,7 @@ const LoginScreen = () => {
                     {/* <Image source={require("../assets/images/eduzolve-logos/eduzolvereport-logo.png")} style={[{ flex: 1, maxHeight:200,   alignSelf: "center", height: height * 0.10,  } ]} resizeMode='contain'/> */}
                     {/* <Text style={{textAlign: "center", padding: 20, fontSize: 30}}>EduZolve</Text> */}
                     <Animated.View  entering={FadeInUp.delay(100).duration(1000).springify().damping(2)} style={{ marginBottom: 30,  width: "85%", alignSelf: "center", marginTop: 10}}>
-                        <Text style={{fontSize: 24, fontFamily: "JosefinSans", }} >EDUZOLVE PASTQUO</Text>
+                        <Text style={{fontSize: 24, fontFamily: "JosefinSans", }} >EDUZOLVE PASCO</Text>
                         <Text style={{ fontFamily: "OpenSans", fontSize: 24}} >A collection of WAEC past questions and answers</Text>
                     </Animated.View>
                 </View>

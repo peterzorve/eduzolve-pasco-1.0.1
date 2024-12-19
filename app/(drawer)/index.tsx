@@ -1,7 +1,7 @@
 // src/app/login.js
 import React, { useState, useEffect } from 'react';
 import * as ScreenCapture from 'expo-screen-capture';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions, Linking, ImageBackground, Image, useColorScheme } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity, useWindowDimensions, Linking, ImageBackground, Platform, Image, useColorScheme } from 'react-native';
 import { useRouter } from 'expo-router';
 import useInactivityLogout from '@/components/useInactivityLogout';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,6 +16,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { SET_USER } from "@/assets/context/actions/userActions";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+
+import { usePreventScreenCapture } from 'expo-screen-capture';
+import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
 
 const PastQuestionScreen = () => {
   const router = useRouter();
@@ -55,6 +58,18 @@ const PastQuestionScreen = () => {
 
     }
   }
+
+
+  usePreventScreenCapture();
+  const ScreenshotPrevention = () => {
+    if (Platform.OS === 'ios') {
+      enableSecureView();
+    }
+  };
+  useEffect(() => {
+    ScreenshotPrevention()
+  }, []);
+
 
 
   useEffect(  () => {  

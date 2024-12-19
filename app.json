@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "EduZolve PastQuo",
-    "slug": "eduzolve-pastquo",
-    "version": "1.0.2",
+    "name": "EduZolve Pasco",
+    "slug": "eduzolve-pasco",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -14,7 +14,7 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.eduzolve.eduzolvepastquo",
+      "bundleIdentifier": "com.eduzolve.eduzolvepasco",
       "buildNumber": "1",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to your camera to take profile pictures.",
@@ -33,7 +33,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.eduzolve.eduzolvepastquo"
+      "package": "com.eduzolve.eduzolvepasco"
     },
     "web": {
       "bundler": "metro",
@@ -59,29 +59,27 @@
       "typedRoutes": true
     },
     "extra": {
-      "apiKeySTUDENTS": "AIzaSyDvW4GnmnrakkqEWQPfI5jjLf9JyrjM1Iw",
-      "authDomainSTUDENTS": "eduzolve-pastquo-student-cdff9.firebaseapp.com",
-      "projectIdSTUDENTS": "eduzolve-pastquo-student-cdff9",
-      "storageBucketSTUDENTS": "eduzolve-pastquo-student-cdff9.firebasestorage.app",
-      "messagingSenderIdSTUDENTS": "368843743556",
-      "appIdSTUDENTS": "1:368843743556:web:2dc85d883eb56736227711",
-      "measurementIdSTUDENTS": "G-4G6WH2NSED",
-
-      "apiKeyTEACHERS": "AIzaSyAMQUiuHFPZiOpmZMYc3WCKZapqROXTlHk",
-      "authDomainTEACHERS": "eduzolve-pastquo-referra-4d3e9.firebaseapp.com",
-      "projectIdTEACHERS": "eduzolve-pastquo-referra-4d3e9",
-      "storageBucketTEACHERS": "eduzolve-pastquo-referra-4d3e9.firebasestorage.app",
-      "messagingSenderIdTEACHERS": "682202203177",
-      "appIdTEACHERS": "1:682202203177:web:63aaf42aeac2953fed0838",
-      "measurementIdTEACHERS": "G-JL12CBJT15",
-
-      "revenueCatIosApiKey": "appl_khPGcxugDDqXOzMwjzrDrPBQOVz", 
-      "revenueCatAndroidApiKey": "goog_cWFsdrbUNYbogzUdSUWfrnhWdXY",
+      "apiKeySTUDENTS": "AIzaSyD7to-Jq-u4eR3rHM0iiQ7D41-Ug5uFtK4",
+      "authDomainSTUDENTS": "eduzolve-pasco.firebaseapp.com",
+      "projectIdSTUDENTS": "eduzolve-pasco",
+      "storageBucketSTUDENTS": "eduzolve-pasco.firebasestorage.app",
+      "messagingSenderIdSTUDENTS": "742807055261",
+      "appIdSTUDENTS": "1:742807055261:web:5440afe07ec5d70c475d74",
+      "measurementIdSTUDENTS": "G-VZV625W03P",
+      "apiKeyTEACHERS": "AIzaSyAAoyyJRGkCvT61yTrLnfVpFQsmDdbpsVc",
+      "authDomainTEACHERS": "eduzolve-pasco-referral.firebaseapp.com",
+      "projectIdTEACHERS": "eduzolve-pasco-referral",
+      "storageBucketTEACHERS": "eduzolve-pasco-referral.firebasestorage.app",
+      "messagingSenderIdTEACHERS": "460945830121",
+      "appIdTEACHERS": "1:460945830121:web:b766735607b39c8b9d8078",
+      "measurementIdTEACHERS": "G-WV51F991YZ",
+      "revenueCatIosApiKey": "appl_aqLxriLCAHjudQEpVmbJXMtHgvF",
+      "revenueCatAndroidApiKey": "goog_rmKltsLvlONKKBnTRjEpufeZmNZ",
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "147b02f1-84dc-45c1-a50d-68085bdefa69"
+        "projectId": "b6f628df-fb10-4aa5-aa4a-091a6738a096"
       }
     }
   }

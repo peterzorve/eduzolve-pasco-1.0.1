@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, View, Text, TouchableOpacity, Dimensions, useColorScheme } from 'react-native';
+import { StyleSheet, Image, View, Text, TouchableOpacity, Dimensions, useColorScheme, Platform } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 // import { View, Text, TextInput, Button, StyleSheet, useWindowDimensions, ImageBackground, KeyboardAvoidingView, ScrollView, Platform, Image, TouchableOpacity } from 'react-native';
 
@@ -13,7 +13,7 @@ import useInactivityLogout from '@/components/useInactivityLogout';
 import { useRouter } from 'expo-router';
 
 import gifImageSectionB from "@/assets/images/gif-images/sectionB.gif"
-import { usePreventScreenCapture } from 'expo-screen-capture';
+// import { usePreventScreenCapture } from 'expo-screen-capture';
 
 // import fetchDatabaseQuestions
 import { fetchDatabaseQuestionsB } from "@/assets/pastquestions/fetchDatabaseQuestionsB"
@@ -24,6 +24,10 @@ import Modal from "react-native-modal";
 
 import SubjectLogo from '@/components/TextLogo';
 import { useSelector } from "react-redux";
+
+
+import { usePreventScreenCapture } from 'expo-screen-capture';
+import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
 
 
 export default function TabTwoScreen() {
@@ -59,6 +63,16 @@ export default function TabTwoScreen() {
 
   const [subjectYear, setSubjectYear] = useState([])
 
+
+   usePreventScreenCapture();
+    const ScreenshotPrevention = () => {
+     if (Platform.OS === 'ios') {
+        enableSecureView();
+      }
+    };
+    useEffect(() => {
+      ScreenshotPrevention()
+    }, []);
 
 
 
@@ -216,7 +230,7 @@ export default function TabTwoScreen() {
           <View style={{ marginBottom: 0, alignItems: "center",     width: "100%",  }}>
               
             <View  style={{ flexDirection: 'row',  alignSelf: "center",  borderRadius: 10,  }} >
-              <TouchableOpacity disabled={active} onPress={() => { router.back() }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: "gray", padding: 3 }}>
+              <TouchableOpacity onPress={() => { router.back() }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: "gray", padding: 3 }}>
                 <Ionicons name={'arrow-undo-circle'}  size={24} color="white" style={{ }}/>
                 <Text style={{   fontFamily: "Kanit", fontSize: 10,  paddingHorizontal: 3, color:"white" }}>Back</Text> 
               </TouchableOpacity>
@@ -228,6 +242,15 @@ export default function TabTwoScreen() {
                 <Text style={{   fontFamily: "Kanit", fontSize: 8,  paddingHorizontal: 3, color:"white" }}>{ active ? "Active" : "Inactive"}{"\n"}Subscip...</Text> 
               </TouchableOpacity>
             </View>
+
+            { (active === false) && (
+                  <View style={{flex: 1, width: "100%"}} >
+                    <Text style={{ fontFamily: "Kanit", fontSize: 12,  color: colorScheme === "dark" ? "white" : "black", marginVertical: 10}} >
+                      You need an active subscription to access all available years. {"\n"}
+                      Currently, you can only access the past 5 years.
+                    </Text>
+                    </View>
+                  )}
 
               <View style={{backgroundColor: "#d4d4d4", height: 2, width: "100%", marginVertical: 10}} >
               </View>

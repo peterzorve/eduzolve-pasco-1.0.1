@@ -208,7 +208,7 @@ const SplashScreen = () => {
                 <View style={{backgroundColor: "white", }} >
                     <Image source={require("@/assets/images/splash/splash3.png")} style={[{ flex: 1, maxHeight:200, marginTop: 80,  alignSelf: "center", height: height * 0.17,  } ]} resizeMode='contain'/>
                     <Animated.View  entering={FadeInUp.delay(100).duration(1000).springify().damping(2)} style={{ marginBottom: 30,  width: "85%", alignSelf: "center"}}>
-                        <Text style={{fontSize: 24, fontFamily: "Kanit"}} >EDUZOLVE PASTQUO </Text>
+                        <Text style={{fontSize: 24, fontFamily: "Kanit"}} >EDUZOLVE PASCO </Text>
                         <Text style={{ fontFamily: "OpenSans", fontSize: 24}} >A collection of WAEC past questions and answers</Text>
                     </Animated.View>
                 </View>
