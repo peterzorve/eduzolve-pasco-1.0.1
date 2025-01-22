@@ -26,6 +26,7 @@ import { useSelector } from "react-redux";
 import { usePreventScreenCapture } from 'expo-screen-capture';
 import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
 
+import { HorizontalLine, TitleAndDescription } from '@/components/customized/MyComponents';
 
 
 export default function HomeScreen() {
@@ -36,11 +37,12 @@ export default function HomeScreen() {
 
   const subscriptionStatus = useSelector((state) => state.subscription.status);
   const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false
-  const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
-  const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
+  // const active = true
+  // const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
+  // const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
   
   const { width, height } = Dimensions.get('window');
-  const {subjectInfoObj } = useLocalSearchParams();
+  const { subjectInfoObj } = useLocalSearchParams();
   const subjectInfo = JSON.parse( subjectInfoObj ); 
   const [questionsDatabase, setQuestionsDatabase] = useState(null)
   const [questions, setQuestions] = useState([])
@@ -50,15 +52,17 @@ export default function HomeScreen() {
   const [subjectYear, setSubjectYear] = useState([])
 
 
-     usePreventScreenCapture();
-      const ScreenshotPrevention = () => {
-       if (Platform.OS === 'ios') {
-          enableSecureView();
-        }
-      };
-      useEffect(() => {
-        ScreenshotPrevention()
-      }, []);
+  usePreventScreenCapture();
+  const ScreenshotPrevention = () => {
+    if (Platform.OS === 'ios') {
+      enableSecureView();
+    }
+  };
+
+  
+  useEffect(() => {
+    ScreenshotPrevention()
+  }, []);
 
 
 
@@ -82,7 +86,7 @@ export default function HomeScreen() {
             setNextBtnColor("white");
           } else {
             setPreviousBtnColor("black");
-            setNextBtnColor("black")
+            setNextBtnColor("black");
           }
         } else {
           setPreviousBtnColor("white");
@@ -110,10 +114,6 @@ export default function HomeScreen() {
   const [selectedOptions, setSelectedOptions] = useState({})
   const [score, setScore] = useState(0)
   const [showResults, setShowResults] = useState(false)
-  const [subject, setSubject] = useState(null);
-  const [isFocus, setIsFocus] = useState(false);
-  const [start, setStart] = useState(true);
-  const [showSubmitBtn, setShowSubmitBtn] = useState(false);
   const [submitBtnText, setSubmitBtnText] = useState("Submit");
 
 
@@ -180,7 +180,6 @@ export default function HomeScreen() {
 
             </View>
 
-
             <View style={{ width: '100%', alignSelf: 'center', paddingVertical: 3,  backgroundColor:  "rgba(255, 255, 255, 1)", margin: 1, borderRadius: 10, borderColor: "gray", borderWidth: 0 }} >
 
 
@@ -215,13 +214,15 @@ export default function HomeScreen() {
         </View>
         
         <ThemedView style={styles.titleContainer}>
-                <ThemedText type="title">{ subjectInfo?.subjectName } </ThemedText>
-                <SubjectLogo text={subjectInfo?.subjectName}/>
-              </ThemedView>
+          <ThemedText style={{textTransform: "uppercase", fontSize: 24, fontFamily: "Kanit"}} type="title">{ subjectInfo?.subjectName }  </ThemedText>
+          <SubjectLogo text={subjectInfo?.subjectName}/>
+        </ThemedView>
 
-              <ThemedView style={styles.titleContainer}>
-                <ThemedText type="subtitle">Objectives</ThemedText>
-              </ThemedView>
+
+        <ThemedView style={styles.titleContainer}>
+          <ThemedText style={{fontFamily: "Kanit"}} type="subtitle">Objectives</ThemedText>
+        </ThemedView>
+
 
 
         {questions?.length === 0  && (
@@ -234,8 +235,6 @@ export default function HomeScreen() {
             <View key={index}  style={{marginHorizontal: -10, marginTop: 10}} >
                 <View  key={item?.index}  style={{  borderRadius: 10,  marginBottom: 3,  paddingVertical: 3,  }} >
 
-                  {/* { ( item?.instruction )     && ( <ThemedText  style={{fontSize: 15, fontFamily: "Georgia", textAlign: "justify" }}>{ item.instruction }</ThemedText> ) } */}
-                  
 
                   {item?.section && (    <ThemedText type="title">{ item?.section?.length < 5 ? "SECTION " + item?.section + "\n" : item?.section + "\n" }</ThemedText> )}
 
@@ -251,10 +250,9 @@ export default function HomeScreen() {
 
 
                   { (item?.questionFigure) && (
-                    <View style={{ borderRadius: 2, marginVertical: 10 }} >
-                            <Image source={item?.questionFigure} style={[{ flex: 1,  alignSelf: "center", height: item?.imageRatio ? width * 0.5 * item?.imageRatio * 0.88 : 200 } ]} resizeMode='contain'/>
-                        </View>
-
+                      <View style={{ borderRadius: 2, marginVertical: 10 }} >
+                        <Image source={item?.questionFigure} style={[{ flex: 1,  alignSelf: "center", height: item?.imageRatio ? width * 0.5 * item?.imageRatio * 0.88 : 200 } ]} resizeMode='contain'/>
+                      </View>
                   )}
 
                   { ( item?.question )     && ( <ThemedText  style={{fontSize: 15, fontFamily: "Kanit" }}>{ item.question }</ThemedText> ) }
@@ -435,7 +433,8 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 2,
+    marginLeft: -10
   },
   stepContainer: {
     gap: 8,

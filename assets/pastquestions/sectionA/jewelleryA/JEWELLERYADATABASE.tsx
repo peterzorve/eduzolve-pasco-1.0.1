@@ -1,0 +1,82 @@
+// import { JEWELLERYA2000 } from "./JEWELLERYA2000";
+// import { JEWELLERYA2001 } from "./JEWELLERYA2001";
+// import { JEWELLERYA2002 } from "./JEWELLERYA2002";
+// import { JEWELLERYA2003 } from "./JEWELLERYA2003";
+// import { JEWELLERYA2004 } from "./JEWELLERYA2004";
+// import { JEWELLERYA2005 } from "./JEWELLERYA2005";
+// import { JEWELLERYA2006 } from "./JEWELLERYA2006";
+// import { JEWELLERYA2007 } from "./JEWELLERYA2007";
+// import { JEWELLERYA2008 } from "./JEWELLERYA2008";
+// import { JEWELLERYA2009 } from "./JEWELLERYA2009";
+// import { JEWELLERYA2010 } from "./JEWELLERYA2010";
+import { JEWELLERYA2011 } from "./JEWELLERYA2011";
+import { JEWELLERYA2012 } from "./JEWELLERYA2012";
+// import { JEWELLERYA2013 } from "./JEWELLERYA2013";
+import { JEWELLERYA2014 } from "./JEWELLERYA2014";
+import { JEWELLERYA2015 } from "./JEWELLERYA2015";
+// import { JEWELLERYA2016 } from "./JEWELLERYA2016";
+// import { JEWELLERYA2017 } from "./JEWELLERYA2017";
+import { JEWELLERYA2018 } from "./JEWELLERYA2018";
+import { JEWELLERYA2019 } from "./JEWELLERYA2019";
+import { JEWELLERYA2020 } from "./JEWELLERYA2020";
+import { JEWELLERYA2021 } from "./JEWELLERYA2021";
+import { JEWELLERYA2022 } from "./JEWELLERYA2022";
+// import { JEWELLERYA2023 } from "./JEWELLERYA2023";
+
+
+export const JEWELLERYADATABASE = {
+	// "JEWELLERYA2000" : JEWELLERYA2000,
+	// "JEWELLERYA2001" : JEWELLERYA2001,
+	// "JEWELLERYA2002" : JEWELLERYA2002,
+	// "JEWELLERYA2003" : JEWELLERYA2003,
+	// "JEWELLERYA2004" : JEWELLERYA2004,
+	// "JEWELLERYA2005" : JEWELLERYA2005,
+	// "JEWELLERYA2006" : JEWELLERYA2006,
+	// "JEWELLERYA2007" : JEWELLERYA2007,
+	// "JEWELLERYA2008" : JEWELLERYA2008,
+	// "JEWELLERYA2009" : JEWELLERYA2009,
+	// "JEWELLERYA2010" : JEWELLERYA2010,
+	"JEWELLERYA2011" : JEWELLERYA2011,
+	"JEWELLERYA2012" : JEWELLERYA2012,
+	// "JEWELLERYA2013" : JEWELLERYA2013,
+	"JEWELLERYA2014" : JEWELLERYA2014,
+	"JEWELLERYA2015" : JEWELLERYA2015,
+	// "JEWELLERYA2016" : JEWELLERYA2016,
+	// "JEWELLERYA2017" : JEWELLERYA2017,
+	"JEWELLERYA2018" : JEWELLERYA2018,
+	"JEWELLERYA2019" : JEWELLERYA2019,
+	"JEWELLERYA2020" : JEWELLERYA2020,
+	"JEWELLERYA2021" : JEWELLERYA2021,
+	"JEWELLERYA2022" : JEWELLERYA2022,
+	// "JEWELLERYA2023" : JEWELLERYA2023,
+}
+
+
+
+export const  yearsJEWELLERYA =  [
+	// { label: 2000,    value: 2000 },
+	// { label: 2001,    value: 2001 },
+	// { label: 2002,    value: 2002 },
+	// { label: 2003,    value: 2003 },
+	// { label: 2004,    value: 2004 },
+	// { label: 2005,    value: 2005 },
+	// { label: 2006,    value: 2006 },
+	// { label: 2007,    value: 2007 },
+	// { label: 2008,    value: 2008 },
+	// { label: 2009,    value: 2009 },
+	// { label: 2010,    value: 2010 },
+	{ label: 2011,    value: 2011 },
+	{ label: 2012,    value: 2012 },
+	// { label: 2013,    value: 2013 },
+	{ label: 2014,    value: 2014 },
+	{ label: 2015,    value: 2015 },
+	// { label: 2016,    value: 2016 },
+	// { label: 2017,    value: 2017 },
+	{ label: 2018,    value: 2018 },
+	{ label: 2019,    value: 2019 },
+	{ label: 2020,    value: 2020 },
+	{ label: 2021,    value: 2021 },
+	{ label: 2022,    value: 2022 },
+	// { label: 2023,    value: 2023 },
+]
+

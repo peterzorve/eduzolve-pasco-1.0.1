@@ -59,7 +59,7 @@ const ForgetPassword = () => {
 
 
   return (
-    <ImageBackground source={require('../assets/images/background/background3.jpg')} style={styles.backgroundImage} >
+
     <ScrollView showsVerticalScrollIndicator={false} style={{backgroundColor: "rgba(0, 0, 0, 0.8)"}}>
         <View style={{backgroundColor: "white", width: "99%", alignSelf: "center", marginVertical: 0.005*height, borderRadius: 5, height: 0.98 * height}}>
 
@@ -90,56 +90,10 @@ const ForgetPassword = () => {
 
         </View>
     </ScrollView>
-  </ImageBackground>
+
   );
 };
 
-const styles = StyleSheet.create({
-  root: {
-    alignItems: "center", 
-    padding: 20, 
-    marginBottom: 100
-  },
 
-  backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover', // or 'stretch' or 'contain'
-    // backgroundColor: 'rgba(255, 255, 255, 0.5)',
-  },
-
-  container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
-    width: "90%",
-    alignSelf: "center",
-    padding: 5,
-    margin: 10
-  },
-  input: {
-    flex: 1,
-    
-  },
-  icon: {
-    marginRight: 10,
-  },
-  logo: {
-    width: "80%", 
-    maxWidth: 500, 
-    maxHeight:200,
-    marginTop: 40, 
-    marginBottom: 50,
-    alignSelf: "center",
-    backgroundColor: "white",
-    padding: 20,
-    borderWidth: 0.2, 
-    borderRadius: 20
-
-  },
-
-
-});
 
 export default ForgetPassword;

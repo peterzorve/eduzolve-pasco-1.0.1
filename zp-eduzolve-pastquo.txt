@@ -18,6 +18,9 @@ npm install react-native-prevent-screenshots --save
 npm install react-native-screen-capture
 npm install react-native-prevent-screenshot-ios-android
 
+npm install @gorhom/bottom-sheet --legacy-peer-deps
+npx expo install expo-linear-gradient -- --legacy-peer-deps
+
 
 
 npx expo start

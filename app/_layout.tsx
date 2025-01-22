@@ -68,15 +68,16 @@ export default function RootLayout() {
       <Provider  store={Store}>
         <Stack screenOptions={{ headerShown: false, headerBackTitle: "Back",   }} initialRouteName="index" >
           <Stack.Screen name="index"                options={{ headerShown: false, }} />
-          <Stack.Screen name="register"             options={{ headerShown: true, title: "Register",  }} />
+          <Stack.Screen name="register"             options={{ headerShown: true, title: "",  }} />
           <Stack.Screen name="forgetpassword"       options={{ headerShown: true, title: "Forget password",  }} />
           <Stack.Screen name="(tabsPastQuestions)"  options={{ headerShown: false, }} />
           <Stack.Screen name="(drawer)"             options={{ headerShown: false,  }} /> 
           <Stack.Screen name="login"                options={{ headerShown: false, title: "Login",  }} />
-          {/* <Stack.Screen name="deviceid"             options={{ headerShown: true, title: "Check Device ID",  }} /> */}
+          <Stack.Screen name="deleteaccount"        options={{ headerShown: true, title: "Delete Account",  }} />
+          <Stack.Screen name="studyroom"            options={{ headerShown: true, title: "",  }} />
           <Stack.Screen name="addreferralcode"      options={{ headerShown: true, title: "",  }} />
-          <Stack.Screen name="resendverification"      options={{ headerShown: true, title: "Resend verification email",  }} />
-          {/* <Stack.Screen name="profile"      options={{ headerShown: true, title: "Profile",  }} /> */}
+          <Stack.Screen name="(tabsUniversities)"   options={{ headerShown: false, }} />
+          <Stack.Screen name="resendverification"   options={{ headerShown: true, title: "Resend verification email",  }} />
           <Stack.Screen name="+not-found" />
         </Stack>
       </Provider>

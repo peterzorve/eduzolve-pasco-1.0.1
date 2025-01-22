@@ -2,7 +2,7 @@
   "expo": {
     "name": "EduZolve Pasco",
     "slug": "eduzolve-pasco",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.eduzolve.eduzolvepasco",
-      "buildNumber": "1",
+      "buildNumber": "7",
       "infoPlist": {
         "NSCameraUsageDescription": "This app needs access to your camera to take profile pictures.",
         "NSPhotoLibraryUsageDescription": "This app needs access to your photo library to upload pictures.",
@@ -75,6 +75,7 @@
       "measurementIdTEACHERS": "G-WV51F991YZ",
       "revenueCatIosApiKey": "appl_aqLxriLCAHjudQEpVmbJXMtHgvF",
       "revenueCatAndroidApiKey": "goog_rmKltsLvlONKKBnTRjEpufeZmNZ",
+      "offlineID": "eduzolve1gpQEhsXHlYJcVZcUFhdH1EgoeGgpQEhsXHlYJcVZcUFhdH1JeXA",
       "router": {
         "origin": false
       },

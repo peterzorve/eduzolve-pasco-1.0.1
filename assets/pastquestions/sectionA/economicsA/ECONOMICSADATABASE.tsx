@@ -1,0 +1,82 @@
+// import { ECONOMICSA2000 } from "./ECONOMICSA2000";
+// import { ECONOMICSA2001 } from "./ECONOMICSA2001";
+// import { ECONOMICSA2002 } from "./ECONOMICSA2002";
+// import { ECONOMICSA2003 } from "./ECONOMICSA2003";
+// import { ECONOMICSA2004 } from "./ECONOMICSA2004";
+// import { ECONOMICSA2005 } from "./ECONOMICSA2005";
+// import { ECONOMICSA2006 } from "./ECONOMICSA2006";
+// import { ECONOMICSA2007 } from "./ECONOMICSA2007";
+import { ECONOMICSA2008 } from "./ECONOMICSA2008";
+// import { ECONOMICSA2009 } from "./ECONOMICSA2009";
+// import { ECONOMICSA2010 } from "./ECONOMICSA2010";
+import { ECONOMICSA2011 } from "./ECONOMICSA2011";
+// import { ECONOMICSA2012 } from "./ECONOMICSA2012";
+// import { ECONOMICSA2013 } from "./ECONOMICSA2013";
+import { ECONOMICSA2014 } from "./ECONOMICSA2014";
+import { ECONOMICSA2015 } from "./ECONOMICSA2015";
+import { ECONOMICSA2016 } from "./ECONOMICSA2016";
+import { ECONOMICSA2017 } from "./ECONOMICSA2017";
+// import { ECONOMICSA2018 } from "./ECONOMICSA2018";
+import { ECONOMICSA2019 } from "./ECONOMICSA2019";
+import { ECONOMICSA2020 } from "./ECONOMICSA2020";
+// import { ECONOMICSA2021 } from "./ECONOMICSA2021";
+// import { ECONOMICSA2022 } from "./ECONOMICSA2022";
+// import { ECONOMICSA2023 } from "./ECONOMICSA2023";
+
+
+export const ECONOMICSADATABASE = {
+	// "ECONOMICSA2000" : ECONOMICSA2000,
+	// "ECONOMICSA2001" : ECONOMICSA2001,
+	// "ECONOMICSA2002" : ECONOMICSA2002,
+	// "ECONOMICSA2003" : ECONOMICSA2003,
+	// "ECONOMICSA2004" : ECONOMICSA2004,
+	// "ECONOMICSA2005" : ECONOMICSA2005,
+	// "ECONOMICSA2006" : ECONOMICSA2006,
+	// "ECONOMICSA2007" : ECONOMICSA2007,
+	"ECONOMICSA2008" : ECONOMICSA2008,
+	// "ECONOMICSA2009" : ECONOMICSA2009,
+	// "ECONOMICSA2010" : ECONOMICSA2010,
+	"ECONOMICSA2011" : ECONOMICSA2011,
+	// "ECONOMICSA2012" : ECONOMICSA2012,
+	// "ECONOMICSA2013" : ECONOMICSA2013,
+	"ECONOMICSA2014" : ECONOMICSA2014,
+	"ECONOMICSA2015" : ECONOMICSA2015,
+	"ECONOMICSA2016" : ECONOMICSA2016,
+	"ECONOMICSA2017" : ECONOMICSA2017,
+	// "ECONOMICSA2018" : ECONOMICSA2018,
+	"ECONOMICSA2019" : ECONOMICSA2019,
+	"ECONOMICSA2020" : ECONOMICSA2020,
+	// "ECONOMICSA2021" : ECONOMICSA2021,
+	// "ECONOMICSA2022" : ECONOMICSA2022,
+	// "ECONOMICSA2023" : ECONOMICSA2023,
+}
+
+
+
+export const  yearsECONOMICSA =  [
+	// { label: 2000,    value: 2000 },
+	// { label: 2001,    value: 2001 },
+	// { label: 2002,    value: 2002 },
+	// { label: 2003,    value: 2003 },
+	// { label: 2004,    value: 2004 },
+	// { label: 2005,    value: 2005 },
+	// { label: 2006,    value: 2006 },
+	// { label: 2007,    value: 2007 },
+	{ label: 2008,    value: 2008 },
+	// { label: 2009,    value: 2009 },
+	// { label: 2010,    value: 2010 },
+	{ label: 2011,    value: 2011 },
+	// { label: 2012,    value: 2012 },
+	{ label: 2013,    value: 2013 },
+	{ label: 2014,    value: 2014 },
+	{ label: 2015,    value: 2015 },
+	{ label: 2016,    value: 2016 },
+	{ label: 2017,    value: 2017 },
+	// { label: 2018,    value: 2018 },
+	{ label: 2019,    value: 2019 },
+	{ label: 2020,    value: 2020 },
+	// { label: 2021,    value: 2021 },
+	// { label: 2022,    value: 2022 },
+	// { label: 2023,    value: 2023 },
+]
+

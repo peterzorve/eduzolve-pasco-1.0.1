@@ -2,67 +2,41 @@ import React, { useState, useEffect } from 'react'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, View, Text, TouchableOpacity, Dimensions, useColorScheme, Platform } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-// import { View, Text, TextInput, Button, StyleSheet, useWindowDimensions, ImageBackground, KeyboardAvoidingView, ScrollView, Platform, Image, TouchableOpacity } from 'react-native';
-
 import { Collapsible } from '@/components/Collapsible';
-import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import useInactivityLogout from '@/components/useInactivityLogout';
 import { useRouter } from 'expo-router';
-
 import gifImageSectionB from "@/assets/images/gif-images/sectionB.gif"
-// import { usePreventScreenCapture } from 'expo-screen-capture';
-
-// import fetchDatabaseQuestions
 import { fetchDatabaseQuestionsB } from "@/assets/pastquestions/fetchDatabaseQuestionsB"
-
 import { useLocalSearchParams } from 'expo-router';
 import Modal from "react-native-modal";
-
-
 import SubjectLogo from '@/components/TextLogo';
 import { useSelector } from "react-redux";
-
-
 import { usePreventScreenCapture } from 'expo-screen-capture';
 import { enableSecureView } from 'react-native-prevent-screenshot-ios-android';
+import { headerTitleImage } from '@/assets/database/headerTitleImage';
 
 
 export default function TabTwoScreen() {
   const router = useRouter();
   const colorScheme = useColorScheme();
-
   const { width, height } = Dimensions.get('window');
-
-
   useInactivityLogout(30); 
   usePreventScreenCapture()
-
-  
   const subscriptionStatus = useSelector((state) => state.subscription.status);
   const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false
-  const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis
-  const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis
-  
-
+  // const active = true
 
   const {  subjectInfoObj } = useLocalSearchParams();
   const subjectInfo = JSON.parse( subjectInfoObj ); 
-
   const [questionsDatabase, setQuestionsDatabase] = useState(null)
   const [questions, setQuestions] = useState([])
-
   const [year, setYear] = useState(null);
-
   const [previousBtnColor, setPreviousBtnColor] = useState("black")
   const [nextBtnColor, setNextBtnColor] = useState("black")
-
-
-
   const [subjectYear, setSubjectYear] = useState([])
-
 
    usePreventScreenCapture();
     const ScreenshotPrevention = () => {
@@ -74,8 +48,6 @@ export default function TabTwoScreen() {
       ScreenshotPrevention()
     }, []);
 
-
-
   useEffect(() => {  
     const [fetchedQuestions, fetchedYears] = fetchDatabaseQuestionsB(subjectInfo?.shortName, active);
     setQuestionsDatabase(fetchedQuestions);                                
@@ -86,136 +58,40 @@ export default function TabTwoScreen() {
   useEffect(() => {
     if (year) {
       const lengthOfYears = subjectYear.length
-      const index = subjectYear.findIndex(item => item.label === year);
+      const index = subjectYear.findIndex(item => item?.label === year);
       setQuestions(questionsDatabase[subjectInfo?.shortName + "B" + year])
-
       if (index === 0) { 
-          setPreviousBtnColor("white");
-            setNextBtnColor("black");
+          setPreviousBtnColor("white");  setNextBtnColor("black");
         } else if (index === lengthOfYears-1) { 
-          setPreviousBtnColor("black");
-          setNextBtnColor("white");
+          setPreviousBtnColor("black");  setNextBtnColor("white");
         } else {
-          setPreviousBtnColor("black");
-          setNextBtnColor("black")
+          setPreviousBtnColor("black");  setNextBtnColor("black");
         }
       } else {
-        setPreviousBtnColor("white");
-        setNextBtnColor("white");
+        setPreviousBtnColor("white");  setNextBtnColor("white");
       }
     }, [year]);
 
 
-
-
-
-  
-  // useEffect(() => {
-  //   if (year) {
-  //     if (subjectInfo?.shortName === "ENGLISHLANGUAGE") { 
-  //         setQuestions( ENGLISHLANGUAGEBDATABASE[subjectInfo?.shortName + "B" + year]); 
-  //         const lengthOfData = yearsENGLISHLANGUAGEB.length
-  //         const index = yearsENGLISHLANGUAGEB.findIndex(item => item.label === year);
-  //         if (index === 0) { setPreviousBtnColor("white")}
-  //         if (index === lengthOfData-1) { setNextBtnColor("white")}
-
-  //     } else if ( subjectInfo?.shortName === "INTEGRATEDSCIENCE" ) {
-  //       setQuestions( INTEGRATEDSCIENCEBDATABASE[subjectInfo?.shortName + "B" + year]); 
-  //       const lengthOfData = yearsINTEGRATEDSCIENCEB.length
-  //       const index = yearsINTEGRATEDSCIENCEB.findIndex(item => item.label === year);
-  //       if (index === 0) { setPreviousBtnColor("white")}
-  //       if (index === lengthOfData-1) { setNextBtnColor("white")} 
-
-  //     }  else if ( subjectInfo?.shortName === "SOCIALSTUDIES" ) {
-  //       setQuestions( SOCIALSTUDIESBDATABASE[subjectInfo?.shortName + "B" + year]); 
-  //       const lengthOfData = yearsSOCIALSTUDIESB.length
-  //       const index = yearsSOCIALSTUDIESB.findIndex(item => item.label === year);
-  //       if (index === 0) { setPreviousBtnColor("white")}
-  //       if (index === lengthOfData-1) { setNextBtnColor("white")}
-
-  //     }  else if ( subjectInfo?.shortName === "COREMATHEMATICS" ) {
-  //       setQuestions( COREMATHEMATICSBDATABASE[subjectInfo?.shortName + "B" + year]); 
-  //       const lengthOfData = yearsCOREMATHEMATICSB.length
-  //       const index = yearsCOREMATHEMATICSB.findIndex(item => item.label === year);
-  //       if (index === 0) { setPreviousBtnColor("white")}
-  //       if (index === lengthOfData-1) { setNextBtnColor("white")}
-  //     }
-
-  //     }
-  //   }, [year]);
-
-
-
-
-
-
     const previousQuestion = () => { 
-
       const index = subjectYear.findIndex(item => item.label === year);
       if (index > 0) { setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( subjectYear[index - 1].value ); }
-
-
-
-      // if (subjectInfo?.shortName === "ENGLISHLANGUAGE") { 
-      //     const index = yearsENGLISHLANGUAGEB.findIndex(item => item.label === year);
-      //     if (index > 0) { setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsENGLISHLANGUAGEB[index - 1].value ); }
-      // }
-
-      // if (subjectInfo?.shortName === "INTEGRATEDSCIENCE") { 
-      //   const index = yearsINTEGRATEDSCIENCEB.findIndex(item => item.label === year);
-      //   if (index > 0) { setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsINTEGRATEDSCIENCEB[index - 1].value ); }
-      // }
-      
-      // if (subjectInfo?.shortName === "SOCIALSTUDIES") { 
-      //   const index = yearsSOCIALSTUDIESB.findIndex(item => item.label === year);
-      //   if (index > 0) { setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsSOCIALSTUDIESB[index - 1].value ); }
-      // }
-
-      // if (subjectInfo?.shortName === "COREMATHEMATICS") { 
-      //   const index = yearsCOREMATHEMATICSB.findIndex(item => item.label === year);
-      //   if (index > 0) { setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsCOREMATHEMATICSB[index - 1].value ); }
-      // }
-
-
-
     }
 
     const nextQuestion = () => {
       const lengthOfData = subjectYear.length
       const index = subjectYear.findIndex(item => item.label === year);
       if ( (index >= 0) && (index < (lengthOfData - 1)) ) {  setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( subjectYear[index + 1].value );  } 
-
-
-      // if (subjectInfo?.shortName === "ENGLISHLANGUAGE") { 
-      //   const lengthOfData = yearsENGLISHLANGUAGEB.length
-      //   const index = yearsENGLISHLANGUAGEB.findIndex(item => item.label === year);
-      //   if ( (index >= 0) && (index < (lengthOfData - 1)) ) {  setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsENGLISHLANGUAGEB[index + 1].value );  } 
-      // }
-      // if (subjectInfo?.shortName === "INTEGRATEDSCIENCE") { 
-      //   const lengthOfData = yearsINTEGRATEDSCIENCEB.length
-      //   const index = yearsINTEGRATEDSCIENCEB.findIndex(item => item.label === year);
-      //   if ( (index >= 0) && (index < (lengthOfData - 1)) ) {  setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsINTEGRATEDSCIENCEB[index + 1].value );  } 
-      // }
-      // if (subjectInfo?.shortName === "SOCIALSTUDIES") { 
-      //   const lengthOfData = yearsSOCIALSTUDIESB.length
-      //   const index = yearsSOCIALSTUDIESB.findIndex(item => item.label === year);
-      //   if ( (index >= 0) && (index < (lengthOfData - 1)) ) {  setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsSOCIALSTUDIESB[index + 1].value );  } 
-      // }
-      // if (subjectInfo?.shortName === "COREMATHEMATICS") { 
-      //   const lengthOfData = yearsCOREMATHEMATICSB.length
-      //   const index = yearsCOREMATHEMATICSB.findIndex(item => item.label === year);
-      //   if ( (index >= 0) && (index < (lengthOfData - 1)) ) {  setNextBtnColor("black");  setPreviousBtnColor("black");  setYear( yearsCOREMATHEMATICSB[index + 1].value );  } 
-      // }
-
     }
 
     const [showMenu, setShowMenu] = useState(true)
 
     const [countClicks, setCountClicks] = useState(0)
+    const unscribedNumberOfClicks = 10
 
     const countingAttempts = () => { 
       if (active === false) {
-        if (countClicks < 15) {
+        if (countClicks < unscribedNumberOfClicks) {
           setCountClicks(countClicks + 1); 
         } else {
           setCountClicks(0);
@@ -223,9 +99,15 @@ export default function TabTwoScreen() {
       } 
     }
 
+    const headerImage = require('@/assets/images/splash/splash6.png')
+    // const headerImage = headerTitleImage(subjectInfo?.shortName)
+
+
+
+
   return (
     <>
-      <ParallaxScrollView headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }} headerImage={  <Image source={require('@/assets/images/splash/splash6.png')} style={styles.reactLogo} /> }>
+      <ParallaxScrollView headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }} headerImage={  <Image source={ headerImage } style={styles.reactLogo} /> }>
 
           <View style={{ marginBottom: 0, alignItems: "center",     width: "100%",  }}>
               
@@ -237,6 +119,7 @@ export default function TabTwoScreen() {
                 <View style={{ flex: 1 }} >
                   <Text style={{ paddingLeft: 5, fontSize: 10,  marginBottom: 3, color: colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>{active ? "Active subscription. \nAccess to ALL available years." : "Inactive subscription. \nAccess limited to ONLY FIVE years"}</Text>
                 </View>
+
               <TouchableOpacity disabled={active} onPress={() => { router.push('/payment') }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: active ? "green" : "red", padding: 3 }}>
                 <Ionicons name={active ? 'lock-open' : 'lock-closed'}  size={24} color="white" style={{ }}/>
                 <Text style={{   fontFamily: "Kanit", fontSize: 8,  paddingHorizontal: 3, color:"white" }}>{ active ? "Active" : "Inactive"}{"\n"}Subscip...</Text> 
@@ -284,15 +167,15 @@ export default function TabTwoScreen() {
           </View>
 
           <ThemedView style={styles.titleContainer}>
-              <ThemedText type="title">{ subjectInfo?.subjectName }</ThemedText>
+              <ThemedText style={{textTransform: "uppercase", fontSize: 24, fontFamily: "Kanit"}} type="title">{ subjectInfo?.subjectName }</ThemedText>
               {/* <HelloWave /> */}
               <SubjectLogo text={subjectInfo?.subjectName}/>
           </ThemedView>
           <ThemedView style={styles.titleContainer}>
-              <ThemedText type="subtitle">Theory </ThemedText>
+              <ThemedText style={{fontFamily: "Kanit"}}  type="subtitle">Theory </ThemedText>
           </ThemedView>
 
-          <ThemedText style={{ textAlign: "justify", fontFamily: "Kanit", fontSize: 18,}}>Read the question, try to answer them and check the answers later</ThemedText>
+          {/* <ThemedText style={{ textAlign: "justify", fontFamily: "Kanit", fontSize: 18,}}>Read the question, try to answer them and check the answers later</ThemedText> */}
 
           {questions?.length === 0  && (
             <View style={{ borderRadius: 20, marginVertical: 10 }} >
@@ -300,7 +183,7 @@ export default function TabTwoScreen() {
             </View>
           )}
 
-          {questions?.map((msg, i) => (
+          {questions && questions?.map((msg, i) => (
             <View key={i} >
 
  
@@ -398,7 +281,7 @@ export default function TabTwoScreen() {
 
 
 
-        <Modal isVisible={((countClicks === 15) )} style={{}} >
+        <Modal isVisible={((countClicks === unscribedNumberOfClicks) )} style={{}} >
           <View style={{backgroundColor: "black", borderRadius: 20, width: "90%", alignSelf: "center", borderBottomLeftRadius: 20 }} >
 
             <View style={{ flexDirection: "row", backgroundColor: "green", borderTopLeftRadius: 20, borderTopEndRadius: 20}}> 

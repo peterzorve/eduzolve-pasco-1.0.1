@@ -15,16 +15,13 @@ export default function Layout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer drawerContent={(props) => <CustomDrawerContent {...props} user={user} active={active}/>} >
 
-        <Drawer.Screen name="index"           options={{   drawerLabel: 'Past Question',  drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 },        title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} size={20} />   )}}/>
-        <Drawer.Screen name="profile"  options={{   drawerLabel: 'Profile',  drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 },             title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={20}/>   )}}/>
-        <Drawer.Screen name="changepassword"  options={{   drawerLabel: 'Settings',  drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 },             title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'settings' : 'settings-outline'} color={color}  size={20}/>   )}}/>
-        <Drawer.Screen name="payment"  options={{   drawerLabel: 'Make Payment',  drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 },             title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'card' : 'card-outline'} color={color}  size={20}/>   )}}/>
-        {/* <Drawer.Screen name="support"       options={{   drawerLabel: 'Contact Support', title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} />   )}}/> */}
-        {/* <Drawer.Screen name="payment"       options={{   drawerLabel: 'Make Payment',      title: 'Ask Kwame', drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} />   )}}/> */}
-        {/* <Drawer.Screen name="socialmedia"   options={{   drawerLabel: 'Social Media',   title: '',          drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} />   )}}/> */}
-        {/* <Drawer.Screen name="mentors"       options={{   drawerLabel: 'Mentors',        title: "Mentors' Details",   drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} />   )}}/> */}
+        <Drawer.Screen name="index"         options={{ drawerLabel: 'Past questions',      drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'home' : 'home-outline'} color={color} size={20} />   )}}/>
+        <Drawer.Screen name="profile"       options={{ drawerLabel: 'Profile',            drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'person' : 'person-outline'} color={color} size={20}/>   )}}/>
+        <Drawer.Screen name="settings"      options={{ drawerLabel: 'Settings',           drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'settings' : 'settings-outline'} color={color}  size={20}/>   )}}/>
+        <Drawer.Screen name="payment"       options={{ drawerLabel: 'Subscription',       drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'card' : 'card-outline'} color={color}  size={20}/>   )}}/>
+        <Drawer.Screen name="universities"  options={{ drawerLabel: 'Universities in Ghana', drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '',  drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'school' : 'school-outline'} color={color} size={20} />   )}}/>
+        <Drawer.Screen name="studywitheduzolve" options={{   drawerLabel: 'Study with EduZolve',   drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 }, title: '', drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'book' : 'book-outline'} color={color} size={20} />   )}}/>
         <Drawer.Screen name="logout"        options={{   drawerLabel: 'Logout',  drawerLabelStyle: { fontFamily: 'Kanit', fontWeight: 400 },         title: 'Logout',    drawerIcon: ({ color, focused }) => ( <Ionicons name={focused ? 'log-out' : 'log-out-outline'} color={color} size={20} />   )}}/>
-
       </Drawer>
     </GestureHandlerRootView>
   );

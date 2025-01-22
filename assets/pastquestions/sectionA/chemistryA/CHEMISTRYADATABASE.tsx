@@ -1,0 +1,82 @@
+// import { CHEMISTRYA2000 } from "./CHEMISTRYA2000";
+// import { CHEMISTRYA2001 } from "./CHEMISTRYA2001";
+// import { CHEMISTRYA2002 } from "./CHEMISTRYA2002";
+// import { CHEMISTRYA2003 } from "./CHEMISTRYA2003";
+// import { CHEMISTRYA2004 } from "./CHEMISTRYA2004";
+// import { CHEMISTRYA2005 } from "./CHEMISTRYA2005";
+// import { CHEMISTRYA2006 } from "./CHEMISTRYA2006";
+// import { CHEMISTRYA2007 } from "./CHEMISTRYA2007";
+// import { CHEMISTRYA2008 } from "./CHEMISTRYA2008";
+// import { CHEMISTRYA2009 } from "./CHEMISTRYA2009";
+// import { CHEMISTRYA2010 } from "./CHEMISTRYA2010";
+// import { CHEMISTRYA2011 } from "./CHEMISTRYA2011";
+import { CHEMISTRYA2012 } from "./CHEMISTRYA2012";
+import { CHEMISTRYA2013 } from "./CHEMISTRYA2013";
+import { CHEMISTRYA2014 } from "./CHEMISTRYA2014";
+import { CHEMISTRYA2015 } from "./CHEMISTRYA2015";
+import { CHEMISTRYA2016 } from "./CHEMISTRYA2016";
+import { CHEMISTRYA2017 } from "./CHEMISTRYA2017";
+import { CHEMISTRYA2018 } from "./CHEMISTRYA2018";
+import { CHEMISTRYA2019 } from "./CHEMISTRYA2019";
+import { CHEMISTRYA2020 } from "./CHEMISTRYA2020";
+import { CHEMISTRYA2021 } from "./CHEMISTRYA2021";
+// import { CHEMISTRYA2022 } from "./CHEMISTRYA2022";
+// import { CHEMISTRYA2023 } from "./CHEMISTRYA2023";
+
+
+export const CHEMISTRYADATABASE = {
+	// "CHEMISTRYA2000" : CHEMISTRYA2000,
+	// "CHEMISTRYA2001" : CHEMISTRYA2001,
+	// "CHEMISTRYA2002" : CHEMISTRYA2002,
+	// "CHEMISTRYA2003" : CHEMISTRYA2003,
+	// "CHEMISTRYA2004" : CHEMISTRYA2004,
+	// "CHEMISTRYA2005" : CHEMISTRYA2005,
+	// "CHEMISTRYA2006" : CHEMISTRYA2006,
+	// "CHEMISTRYA2007" : CHEMISTRYA2007,
+	// "CHEMISTRYA2008" : CHEMISTRYA2008,
+	// "CHEMISTRYA2009" : CHEMISTRYA2009,
+	// "CHEMISTRYA2010" : CHEMISTRYA2010,
+	// "CHEMISTRYA2011" : CHEMISTRYA2011,
+	"CHEMISTRYA2012" : CHEMISTRYA2012,
+	"CHEMISTRYA2013" : CHEMISTRYA2013,
+	"CHEMISTRYA2014" : CHEMISTRYA2014,
+	"CHEMISTRYA2015" : CHEMISTRYA2015,
+	"CHEMISTRYA2016" : CHEMISTRYA2016,
+	"CHEMISTRYA2017" : CHEMISTRYA2017,
+	"CHEMISTRYA2018" : CHEMISTRYA2018,
+	"CHEMISTRYA2019" : CHEMISTRYA2019,
+	"CHEMISTRYA2020" : CHEMISTRYA2020,
+	"CHEMISTRYA2021" : CHEMISTRYA2021,
+	// "CHEMISTRYA2022" : CHEMISTRYA2022,
+	// "CHEMISTRYA2023" : CHEMISTRYA2023,
+}
+
+
+
+export const  yearsCHEMISTRYA =  [
+	// { label: 2000,    value: 2000 },
+	// { label: 2001,    value: 2001 },
+	// { label: 2002,    value: 2002 },
+	// { label: 2003,    value: 2003 },
+	// { label: 2004,    value: 2004 },
+	// { label: 2005,    value: 2005 },
+	// { label: 2006,    value: 2006 },
+	// { label: 2007,    value: 2007 },
+	// { label: 2008,    value: 2008 },
+	// { label: 2009,    value: 2009 },
+	// { label: 2010,    value: 2010 },
+	// { label: 2011,    value: 2011 },
+	{ label: 2012,    value: 2012 },
+	{ label: 2013,    value: 2013 },
+	{ label: 2014,    value: 2014 },
+	{ label: 2015,    value: 2015 },
+	{ label: 2016,    value: 2016 },
+	{ label: 2017,    value: 2017 },
+	{ label: 2018,    value: 2018 },
+	{ label: 2019,    value: 2019 },
+	{ label: 2020,    value: 2020 },
+	{ label: 2021,    value: 2021 },
+	// { label: 2022,    value: 2022 },
+	// { label: 2023,    value: 2023 },
+]
+

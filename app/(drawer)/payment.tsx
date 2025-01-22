@@ -14,6 +14,8 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 // import { db, auth } from "../../../firebaseConfig";
 // import { SET_USER } from "../../context/actions/userActions";
 import { SET_USER, SET_SUBSCRIPTION_STATUS } from "@/assets/context/actions/userActions";
+import { TitleAndDescription, customEncrypt, LocalStorageEduZolvePasco, BottomSheetCustomized, TextInputCustomized, PasscodeSetup, TouchableOpacityCustomized, ModalCustomized2 } from "@/components/customized/MyComponents";
+
 
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -30,6 +32,10 @@ const PaymentScreen = () => {
 
   const user = useSelector((state) => state.user.user); 
 
+  const [showModal, setShowModal] = useState(false)
+  const [modalTitle, setModalTitle] = useState("")
+  const [modalDescription, setModalDescription] = useState("")
+
   const router = useRouter();
   const dispatch   = useDispatch()
   const colorScheme = useColorScheme();
@@ -39,19 +45,13 @@ const PaymentScreen = () => {
   const [subscribedAlready, setSubscribedAlready] = useState(false);
 
   const active = subscriptionStatus?.entitlements?.active?.["pro"]?.isActive ?   true : false; 
+  // const active = true
   const expirationDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.expirationDateMillis;
   const originalPurchaseDateMillis = subscriptionStatus?.entitlements?.active?.["pro"]?.originalPurchaseDateMillis;
 
 
-  const [payment, setPayment] = useState(""); 
-  const [onboardingOffering, setOnboardingOffering] = useState<PurchasesOffering>()
-  const [subscribedAlreadyMessaage, setSubscribedAlreadyMessaage] = useState("")
-
 
   const isSubscribed = async () => {
-        // Present paywall for current offering:
-        // const paywallResult: PAYWALL_RESULT = await RevenueCatUI.presentPaywallIfNeeded({requiredEntitlementIdentifier: "pro"})
-
         const customerInfo = await Purchases.getCustomerInfo();
         const isProSubscriber = customerInfo.entitlements.active["pro"]
 
@@ -85,29 +85,29 @@ const PaymentScreen = () => {
         const updatedData = await getDoc(doc( dbSTUDENTS, "eduzolve-users", user?._id));
         dispatch(SET_USER(updatedData.data())); 
         const jsonValue = JSON.stringify(updatedData.data());
-        AsyncStorage.setItem('eduzolveReportUsersLocalStorage', jsonValue); 
+        // AsyncStorage.setItem('eduzolveReportUsersLocalStorage', jsonValue); 
 
 
         if (subscribedAlready) {
-          alert("You already have an active subscription. No need to do anything.")
-          // setSubscribedAlreadyMessaage
+          setShowModal(true); setModalTitle("Subscription Active"); setModalDescription('You already have an active subscription. No need to do anything.');
+          // alert("You already have an active subscription. No need to do anything.")
         } else {
           Purchases.setAttributes({ "username" : user?.username, "email": user?.email });
           const customerInfo = await Purchases.getCustomerInfo();
           dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
-          alert("Payment successful. You can now procced to enjoy your PRO features")
+          setShowModal(true); setModalTitle("Payment successful"); setModalDescription('You can now procced to enjoy your PRO features');
+          // alert("Payment successful. You can now procced to enjoy your PRO features")
         }
-        setDisablemakePaymentCustomizeBtn(false)
-
-
-                    
+        setDisablemakePaymentCustomizeBtn(false);                    
       } catch (error) {
-      alert("Error: Update unsuccessful. Try again later " + error.message);
-      setDisablemakePaymentCustomizeBtn(false)
+        setShowModal(true); setModalTitle("unsuccessful"); setModalDescription("Error: Update unsuccessful. Try again later " + error.message);
+
+        // alert("Error: Update unsuccessful. Try again later " + error.message);
+        setDisablemakePaymentCustomizeBtn(false)
     }
     } else {
-      // setPayment("Not subscribed")
-      alert("Payment / Restoration unsuccessful")
+      // alert("Payment / Restoration unsuccessful")
+      setShowModal(true); setModalTitle("unsuccessful"); setModalDescription('Payment/restoration failed. Check your credentials and try again later');
       setDisablemakePaymentCustomizeBtn(false)
     }
   }
@@ -119,23 +119,12 @@ const PaymentScreen = () => {
   return (
     <View style={{ flex: 1,    alignSelf: "center",     width: "100%",  }}>
       <ScrollView showsVerticalScrollIndicator={false} style={{}} >
-      
-          {/* <View style={{alignSelf: "center", paddingLeft: 10, width: "90%", borderRadius: 10, marginTop: 10,}} > 
-            <Text  style={{  fontSize: 20, textAlign: "left", fontFamily: "KanitBold", color: active ? "green" : "red" }}>
-                {active ? "SUBSCRIPTION ACTIVE": "NOT SUBSCRIBED"}
-            </Text>
-          </View> */}
+
 
           <View  style={{ flexDirection: 'row', paddingVertical: 5, alignSelf: "center",  borderRadius: 10, width: "90%", marginTop: 10 }} >
-            <View style={{ flex: 1 }} >
-              <Text style={{  fontSize: 24,  marginBottom: 3, color:  colorScheme === "dark" ? "white" : "black", fontFamily: "Kanit" }}>PRO Features</Text>
-              {/* <Text style={{ paddingLeft: 5, fontSize: 24,  marginBottom: 3, color: "black", fontFamily: "Kanit" }}>Profile Information</Text> */}
-            </View>
-            {/* <View style={{ flex: 1, justifyContent: "center", }} >
-                <Text style={{fontFamily: "Kanit", textDecorationLine: "underline", marginBottom: 10,  fontSize: 18, color: colorScheme === "dark" ? "white" : "black" }} >
-                  Note 
-                </Text>
-            </View> */}
+
+            <TitleAndDescription title="PRO Features" titleColor={colorScheme === "dark" ? "white" : "black"} titleFontSize={24}/>
+ 
             
             <TouchableOpacity disabled={active} onPress={() => { router.push('/payment') }} style={{ flexDirection: "row", justifyContent: "center", alignItems: "center", borderRadius: 10, marginHorizontal: 3,  backgroundColor: active ? "green" : "red", padding: 3 }}>
               <Ionicons name={active ? 'lock-open' : 'lock-closed'}  size={24} color="white" style={{ }}/>
@@ -165,7 +154,6 @@ const PaymentScreen = () => {
           <PackagesInformations delay={240} duration={2400} onPress={makePaymentCustomize} access={active} offering="Be up to date with new app features"                 description="There are more to come - MentorMee feature, AI-assisted learning tool. You wil be able to see new features anytime they are launched" />
           
 
-          {/* {(active === false) && ( */}
             <Animated.View entering={FadeInUp.delay(260).duration(2600)} style={{  width: "95%", alignSelf: "center", marginTop: 5,  borderRadius: 15}}>
               <TouchableOpacity style={{alignSelf: "center", padding: 10, width: "90%", backgroundColor: disablemakePaymentCustomizeBtn ? "#b4b4b4" : "green", borderRadius: 30, marginTop: 20 }} onPress={makePaymentCustomize} disabled={disablemakePaymentCustomizeBtn}> 
                   <Text  style={{  fontSize: 16, textAlign: "center", fontFamily: "Kanit", color: "white" }}>
@@ -174,8 +162,11 @@ const PaymentScreen = () => {
               </TouchableOpacity>
             </Animated.View>
 
-          {/* )} */}
+            <ModalCustomized2 isModalVisible={showModal} setIsModalVisible={setShowModal}>
+              <TitleAndDescription title={modalTitle} description={modalDescription}/>
+            </ModalCustomized2>
 
+ 
 
 </ScrollView>
     </View>
