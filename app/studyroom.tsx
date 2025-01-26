@@ -26,7 +26,7 @@ const StudyRoom = () => {
 
   const { videosInfoObj } =  useLocalSearchParams();
   const videosInfo = JSON.parse( videosInfoObj );
-  // console.log(videosInfo)
+
 
   usePreventScreenCapture();
   const ScreenshotPrevention = () => {
@@ -45,12 +45,10 @@ const StudyRoom = () => {
     const unsubscribe = onSnapshot(msgQuery, (querySnap) => {
       const upMsg = querySnap?.docs?.map((doc) => doc?.data()); 
       setVideosInformation(upMsg);
-      setIsLoading(false); 
     });
     return unsubscribe;
   }, []);
 
-  // console.log(videosInformation)
 
 
 
@@ -58,8 +56,6 @@ const StudyRoom = () => {
   return (
     <View style={{ flex: 1,    alignSelf: "center",     width: "100%", }}>
       <ScrollView style={{   width: "100%",  alignSelf: "center"   }} >        
-        {/* <AllSubjectsDisplay data={coreSubjectsInformation} title='Core Subjects'/> */}
-
         { videosInformation && <AllSubjectsDisplay data={videosInformation} title='Core Subjects'/>}
         
         <View style={{alignSelf: "center", marginBottom: 30, padding: 5,}}>

@@ -96,17 +96,17 @@ const PasswordSettingsScreen = () => {
         setDisableButton(true);
           const docSnap = await getDoc(doc(dbTEACHERS, "referral-codes", referralCode,));
           if (docSnap?.data()?.accountReady) {
-          const data = {name: user?.username,  date: `${Date.now()}`, referralCode: referralCode, aimAndVision: "We (EduZolve Oy) aim to provide the the best educational materials for J-H-S. and Senior High School Students and young professionals"};
-          await setDoc(doc(dbTEACHERS, "eduzolve-referrals", docSnap?.data()?._id, "members", user?._id.slice(3, 13)), data);
-          await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  user?._id), { hasReferralCode: false, referralCode: referralCode});
-          const updatedData = await getDoc(doc(dbSTUDENTS, "eduzolve-users",  user?._id));
-          dispatch(SET_USER(updatedData.data()));
-          LocalStorageEduZolvePasco(updatedData?.data());
-          setShowModal(true); setModalTitle("Successfully added"); setModalDescription("Referal code '"+ referralCode + "' has been registered successfully");
-          setReferralCode("");
-        } else {
+            const data = {name: user?.username, paidOut: false, date: `${Date.now()}`, aimAndVision: "We (EduZolve Oy) aim to provide the the best educational materials for J-H-S. and Senior High School Students and young professionals"};
+            await setDoc(doc(dbTEACHERS, "eduzolve-referrals", docSnap?.data()?._id, "members", user?._id.slice(3, 13)), data);
+            await updateDoc(doc( dbSTUDENTS, "eduzolve-users",  user?._id), { hasReferralCode: false, referralCode: referralCode});
+            const updatedData = await getDoc(doc(dbSTUDENTS, "eduzolve-users",  user?._id));
+            dispatch(SET_USER(updatedData.data()));
+            LocalStorageEduZolvePasco(updatedData?.data());
+            setShowModal(true); setModalTitle("Successfully added"); setModalDescription("Referal code '"+ referralCode + "' has been registered successfully");
+            setReferralCode("");
+          } else {
           // alert("Referral code is not ready. Contact the owner of the code");
-          setShowModal(true); setModalTitle("Referral code inavailable"); setModalDescription("Referral code is not ready or currently unavailable. Contact the owner of the code");
+          setShowModal(true); setModalTitle("Referral code unavailable"); setModalDescription("Referral code is incorrect or currently unavailable. Contact the owner of the code");
         }
         setDisableButton(false); 
       } catch (error) {
@@ -114,7 +114,7 @@ const PasswordSettingsScreen = () => {
         setShowModal(true); setModalTitle("Something went wrong"); setModalDescription(error?.message);
       }
     } else {
-      alert("Enter a referral code")
+      // alert("Enter a referral code")
       setShowModal(true); setModalTitle("Empty field"); setModalDescription("Referral code field must be filled");
     }
   }

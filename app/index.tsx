@@ -40,8 +40,7 @@ const SplashScreen = () => {
   const email = savedData?.email
   const passcode = savedData?.shortPswd
 
-  // console.log("password : ", password)
-  // console.log("passcode : ", passcode)
+
 
 
   const[digit1, setDigit1] = useState("");
@@ -94,7 +93,7 @@ const SplashScreen = () => {
                   await Purchases.logIn(docSnap?.data()?._id)
                   const customerInfo = await Purchases.getCustomerInfo();
                   dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
-                  router.replace('/(drawer)') 
+                  router.replace('/(drawer)/pastquestions') 
                 } else {
                   if (deviceInfo?.changeDevice) {
                     try {
@@ -102,7 +101,7 @@ const SplashScreen = () => {
                       await Purchases.logIn(docSnap?.data()?._id)
                       const customerInfo = await Purchases.getCustomerInfo();
                       dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
-                      router.replace('/(drawer)')
+                      router.replace('/(drawer)/pastquestions')
                     } catch (error) {
                       setShowModal(true); setModalTitle("Login failed"); setModalDescription("Something went wrong. Try again later.");
                     }

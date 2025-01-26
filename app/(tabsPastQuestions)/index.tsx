@@ -58,10 +58,8 @@ export default function HomeScreen() {
       enableSecureView();
     }
   };
-
-  
   useEffect(() => {
-    ScreenshotPrevention()
+    ScreenshotPrevention() 
   }, []);
 
 

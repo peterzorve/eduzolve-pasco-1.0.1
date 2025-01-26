@@ -41,6 +41,8 @@ const LoginScreen = () => {
     const [disableButton, setDisableButton] = useState(false);
     const togglePasswordVisibility = () => {  setIsPasswordVisible(!isPasswordVisible); };
 
+
+    
     const loginBtn = async () => {
       if (!email) {  setEmailIsEmpty(true)}
       if (!password) { setPasswordIsEmpty(true)}
@@ -53,7 +55,6 @@ const LoginScreen = () => {
             dispatch( SET_USER(docSnap.data()) );
             if (userCredential?.user?.emailVerified) {
               let verifiedData = await getDoc(doc(dbSTUDENTS, "eduzolve-users", userCredential?.user?.uid,)); 
-              
               try {
                 if (verifiedData.data()?.emailVerified === false) { 
                   await updateDoc(doc(dbSTUDENTS, "eduzolve-users", userCredential?.user?.uid,), {emailVerified: true}); 
@@ -75,7 +76,7 @@ const LoginScreen = () => {
                       await Purchases.logIn(deviceInfo?._id);
                       const customerInfo = await Purchases.getCustomerInfo();
                       dispatch( SET_SUBSCRIPTION_STATUS(customerInfo) );
-                      router.replace('/(drawer)');
+                      router.replace('/(drawer)/pastquestions');
                     } else {
                         if (deviceInfo?.changeDevice) {
                         try {
@@ -83,35 +84,29 @@ const LoginScreen = () => {
                           await Purchases.logIn( deviceInfo?._id );
                           const customerInfo = await Purchases.getCustomerInfo();
                           dispatch( SET_SUBSCRIPTION_STATUS( customerInfo ) );
-                          router.replace('/(drawer)');
+                          router.replace('/(drawer)/pastquestions');
                         } catch (error) {
-                          // alert("Try again later. \nSomething went wrong")
                           setShowModal(true); setModalTitle("Login failed"); setModalDescription("Try again later. Something went wrong");
                         }
                       } else {
-                        // alert("You're trying to log in from a different device. Please use the device you originally installed the app on. To switch devices, contact support at peter.zorve@eduzolve.com")
                         setShowModal(true); setModalTitle("Unknown Device"); setModalDescription('You are trying to log in from a different device. Please use the device you originally installed the app on. To switch devices, contact support at "peter.zorve@eduzolve.com"');
                       }
                     }
                   } else {
-                    // alert("You need to update your app") 
                     setShowModal(true); setModalTitle("App outdated"); setModalDescription("You need to update your app");
                   }
                 } 
                 else {
-                  // alert("Something went wrong\nCheck your internet connection")
                   setShowModal(true); setModalTitle("Login failed"); setModalDescription("Something went wrong. Check your internet connection");
               }
               setEmail(""); setPassword("");  setDisableButton(false); setButtonText("Login"); 
             }
             else { 
               setDisableButton(false); setButtonText("Login"); setLoginFailed(true);
-              // setLoginFailedMessage("Your email has not been verified yet. Please check your inbox and verify it before continuing. \nIf you haven't received the verification email, return to the registration page and click 'Didn't receive a verification email? Resend'.")
               setShowModal(true); setModalTitle("Email not verified"); setModalDescription("Your email has not been verified yet. Please check your inbox and verify it before continuing. If you haven't received the verification email, return to the registration page and click 'Didn't receive a verification email? Resend'.");
             }
           } 
         else {
-          // alert("User does not exist");  
           setLoginFailed(true);  setDisableButton(false);  setButtonText("Login");
           setShowModal(true); setModalTitle("Unknown user"); setModalDescription("User does not exist");
         }

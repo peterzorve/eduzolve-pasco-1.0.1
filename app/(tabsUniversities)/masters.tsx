@@ -61,7 +61,7 @@ export default function MastersDegree() {
                   <View style={{ marginTop: 5, flexDirection: "row", }}>
                     <TitleAndDescription description={programs?.programme} descriptionFontSize={16} descriptionColor={colorScheme === "dark" ? "white" : "black"} />
                     <Text style={{   color: "gray",   fontSize: 12,   fontFamily: "Kanit",   }}>
-                      ~ 4 yrs
+                      ~ 2-3 yrs
                     </Text>
                   </View>
                   <Text style={{   color: "gray",   fontSize: 12,   fontFamily: "Kanit", marginBottom: 15  }}>

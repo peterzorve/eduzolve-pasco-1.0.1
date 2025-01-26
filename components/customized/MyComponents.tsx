@@ -91,7 +91,7 @@ export const TouchableOpacityWithoutBackground = ({ onPress, text1="Submit", tex
     <TouchableOpacity  style={{alignSelf: "center", margin: 8, padding: 8}} onPress={onPress}> 
       <Text  style={{fontFamily: "Kanit", color: text1Color, textAlign: "center"}}> {text1} {" "}
           {text2 && (
-            <Text style={{color: text2Color, fontWeight: bold ? "bold" : {} }} >{text2}</Text> 
+            <Text style={{color: text2Color, fontWeight: bold ? "bold" : "normal" }} >{text2}</Text> 
           )}
           {text2 && (
             <Text style={{color: text3Color, }} > {text3}</Text> 

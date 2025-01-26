@@ -3,6 +3,7 @@ import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity, useWin
 import { router, useRouter } from 'expo-router';
 
 
+
 // import { ghana } from '@/assets/database/ghana';
 import { universities_ghana } from '@/assets/universities/universities_ghana';
 import { HorizontalLine, TitleAndDescription } from '@/components/customized/MyComponents';
@@ -30,7 +31,8 @@ const FetchSubject1 = ({ data}) => {
     <View style={{width: '100%', marginBottom: 20}}>
       {data.map((option, index) => (
         <View key={index}>
-          <TouchableOpacity style={[ {  marginVertical: 3, borderRadius: 5, },]} onPress={() => handleSelectedVideo(option)} >
+          <TouchableOpacity style={[ {  marginVertical: 3, borderRadius: 5, backgroundColor: "rgba(180,180,180,0.1)" },]} onPress={() => handleSelectedVideo(option)} >
+
             <View style={{ flexDirection: 'row', padding: 5, }} >
                 <View style={{ width: 50, height: 50, borderColor: "#388e3c", paddingVertical: 1, alignItems: "center", justifyContent: "center", marginRight: 10 }} >
                   { option?.logo && (

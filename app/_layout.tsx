@@ -20,9 +20,6 @@ import Store from "@/assets/context/store"
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() { 
-
-
-  // export default function RootLayout() {
   
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
